@@ -10,6 +10,8 @@
     <meta name="author" content="Lizany Li">
     
     
+        <link rel="icon" href="http://yoursite.com/assets/images/ai.jpg">
+    
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
@@ -27,7 +29,7 @@
         
     
     
-        <meta property="og:image" content="http://yoursite.com/assets/images/hourglass.jpg"/>
+        <meta property="og:image" content="http://yoursite.com/assets/images/glass.jpg"/>
     
     
     
@@ -44,12 +46,6 @@
             <!-- Define author's picture -->
 
 
-    
-        
-            
-        
-    
-
 <header id="header" data-behavior="1">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <h1 class="header-title">
@@ -57,11 +53,11 @@
     </h1>
     
         
-            <a  class="header-right-picture "
+            <a  class="header-right-icon "
                 href="#about">
         
         
-            <img class="header-picture" src="/assets/images/hourglass.jpg"/>
+            <i class="fa fa-lg fa-glass.jpg"></i>
         
         </a>
     
@@ -79,7 +75,7 @@
         
             <div class="sidebar-profile">
                 <a href="/#about">
-                        <img class="sidebar-profile-picture" src="/assets/images/hourglass.jpg"/>
+                        <img class="sidebar-profile-picture" src="/assets/images/glass.jpg"/>
                 </a>
                 <h4 class="sidebar-profile-name">Lizany Li</h4>
                 
@@ -229,7 +225,10 @@
             </div>
             
                 <div class="postShorten-content" itemprop="articleBody">
-                    <p>test lizanyRoger ~</p>
+                    <p>欢迎使用,可以通过==设置==里的修改模板来改变新建文章的内容。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Page = <span class="number">6201</span></div><div class="line">filenum = <span class="number">1051</span></div><div class="line">while Page &lt; <span class="number">6223</span>:</div><div class="line">	CurrentURL = <span class="string">'http://news.sohu.com/guojixinwen_'</span> + str(Page) + <span class="string">'.shtml'</span></div><div class="line">	temp = getHtml(CurrentURL)</div><div class="line">	res = getSecondURLs(temp)</div><div class="line">	filenum = getSecondResult(res,filenum)</div><div class="line">	print Page</div><div class="line">	Page = Page + <span class="number">1</span></div></pre></td></tr></table></figure>
+<p><a href="https://www.baidu.com" target="_blank" rel="external">github</a></p>
+<p><img src="assets/images/ai.jpg" alt="enter description here"></p>
 
                     
                         
@@ -331,7 +330,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/hourglass.jpg"/>
+            <img id="about-card-picture" src="/assets/images/glass.jpg"/>
         
             <h4 id="about-card-name">Lizany Li</h4>
         
@@ -432,6 +431,13 @@
 <!--SCRIPTS END-->
 
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('Z7A3XW4R2I', '12db1ad54372045549ef465881c17e743');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
 
     </body>
 </html>

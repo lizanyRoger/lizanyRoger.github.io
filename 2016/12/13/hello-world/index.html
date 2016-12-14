@@ -10,6 +10,8 @@
     <meta name="author" content="Lizany Li">
     
     
+        <link rel="icon" href="http://yoursite.com/assets/images/ai.jpg">
+    
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
@@ -31,7 +33,7 @@ Quick">
         
     
     
-        <meta property="og:image" content="http://yoursite.com/assets/images/hourglass.jpg"/>
+        <meta property="og:image" content="http://yoursite.com/assets/images/glass.jpg"/>
     
     
     
@@ -48,12 +50,6 @@ Quick">
             <!-- Define author's picture -->
 
 
-    
-        
-            
-        
-    
-
 <header id="header" data-behavior="3">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <h1 class="header-title">
@@ -61,11 +57,11 @@ Quick">
     </h1>
     
         
-            <a  class="header-right-picture "
+            <a  class="header-right-icon "
                 href="#about">
         
         
-            <img class="header-picture" src="/assets/images/hourglass.jpg"/>
+            <i class="fa fa-lg fa-glass.jpg"></i>
         
         </a>
     
@@ -83,7 +79,7 @@ Quick">
         
             <div class="sidebar-profile">
                 <a href="/#about">
-                        <img class="sidebar-profile-picture" src="/assets/images/hourglass.jpg"/>
+                        <img class="sidebar-profile-picture" src="/assets/images/glass.jpg"/>
                 </a>
                 <h4 class="sidebar-profile-name">Lizany Li</h4>
                 
@@ -405,7 +401,7 @@ Quick">
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/hourglass.jpg"/>
+            <img id="about-card-picture" src="/assets/images/glass.jpg"/>
         
             <h4 id="about-card-name">Lizany Li</h4>
         
@@ -508,6 +504,13 @@ Quick">
     
 
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('Z7A3XW4R2I', '12db1ad54372045549ef465881c17e743');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
 
     </body>
 </html>
