@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Lizany Li">
-    <title>归档 - Lizany Li</title>
+    <title>一个编程小白白的爬虫&amp;贝叶斯之旅（一） - Lizany Li</title>
     <meta name="author" content="Lizany Li">
     
     
@@ -15,15 +15,48 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="a coding jackaroo in the bottom half of puberty">
+    <meta name="description" content="作为一只纯纯小白，第一次接触python&amp;amp;爬虫&amp;amp;文本分类，算是绝对的push自己接触新技术了，刚开始很方，每做一步都会继续慌下一步，所幸一步步做下来回头看感觉还不错嘛~
+下面进入正题……目标分阶段性有四：
+
+爬虫获取语料库
+对语料库进行预处理（包括分词和去停用词）
+构建数据词典（训练）
+对测试集分类
+
+第一步：爬虫获取语料库（也就是这篇文章的内容~）（1）搜狐新闻在这里本小白还属于">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Lizany Li">
-<meta property="og:url" content="https://lizanyroger.github.io/archives/index.html">
+<meta property="og:title" content="一个编程小白白的爬虫&贝叶斯之旅（一）">
+<meta property="og:url" content="https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&贝叶斯之旅（一）/index.html">
 <meta property="og:site_name" content="Lizany Li">
-<meta property="og:description" content="a coding jackaroo in the bottom half of puberty">
+<meta property="og:description" content="作为一只纯纯小白，第一次接触python&amp;amp;爬虫&amp;amp;文本分类，算是绝对的push自己接触新技术了，刚开始很方，每做一步都会继续慌下一步，所幸一步步做下来回头看感觉还不错嘛~
+下面进入正题……目标分阶段性有四：
+
+爬虫获取语料库
+对语料库进行预处理（包括分词和去停用词）
+构建数据词典（训练）
+对测试集分类
+
+第一步：爬虫获取语料库（也就是这篇文章的内容~）（1）搜狐新闻在这里本小白还属于">
+<meta property="og:image" content="https://lizanyroger.github.io/assets/images/blogs/1.png">
+<meta property="og:image" content="https://lizanyroger.github.io/assets/images/blogs/2.png">
+<meta property="og:image" content="https://lizanyroger.github.io/assets/images/blogs/3.png">
+<meta property="og:image" content="https://lizanyroger.github.io/assets/images/blogs/4.png">
+<meta property="og:image" content="https://lizanyroger.github.io/assets/images/blogs/5.png">
+<meta property="og:image" content="https://lizanyroger.github.io/assets/images/blogs/6.png">
+<meta property="og:image" content="https://lizanyroger.github.io/assets/images/blogs/7.png">
+<meta property="og:updated_time" content="2016-12-15T06:46:43.175Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lizany Li">
-<meta name="twitter:description" content="a coding jackaroo in the bottom half of puberty">
+<meta name="twitter:title" content="一个编程小白白的爬虫&贝叶斯之旅（一）">
+<meta name="twitter:description" content="作为一只纯纯小白，第一次接触python&amp;amp;爬虫&amp;amp;文本分类，算是绝对的push自己接触新技术了，刚开始很方，每做一步都会继续慌下一步，所幸一步步做下来回头看感觉还不错嘛~
+下面进入正题……目标分阶段性有四：
+
+爬虫获取语料库
+对语料库进行预处理（包括分词和去停用词）
+构建数据词典（训练）
+对测试集分类
+
+第一步：爬虫获取语料库（也就是这篇文章的内容~）（1）搜狐新闻在这里本小白还属于">
+<meta name="twitter:image" content="https://lizanyroger.github.io/assets/images/blogs/1.png">
     
     
         
@@ -46,7 +79,7 @@
             <!-- Define author's picture -->
 
 
-<header id="header" data-behavior="1">
+<header id="header" data-behavior="3">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <h1 class="header-title">
         <a class="header-title-link" href="/ ">Lizany Li</a>
@@ -70,7 +103,7 @@
         
     
 
-<nav id="sidebar" data-behavior="1">
+<nav id="sidebar" data-behavior="3">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -194,71 +227,21 @@
 </nav>
 
             
-            <div id="main" data-behavior="1"
+            <div id="main" data-behavior="3"
                  class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/12/14/title/">
-                            title
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-12-14T14:48:47+08:00">
-	
-		    12月 14, 2016
-    	
-    </time>
+        <div class="post-header main-content-wrap text-left">
     
-</div>
-
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>欢迎使用,可以通过==设置==里的修改模板来改变新建文章的内容。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Page = <span class="number">6201</span></div><div class="line">filenum = <span class="number">1051</span></div><div class="line">while Page &lt; <span class="number">6223</span>:</div><div class="line">	CurrentURL = <span class="string">'http://news.sohu.com/guojixinwen_'</span> + str(Page) + <span class="string">'.shtml'</span></div><div class="line">	temp = getHtml(CurrentURL)</div><div class="line">	res = getSecondURLs(temp)</div><div class="line">	filenum = getSecondResult(res,filenum)</div><div class="line">	print Page</div><div class="line">	Page = Page + <span class="number">1</span></div></pre></td></tr></table></figure>
-<p><a href="https://www.baidu.com" target="_blank" rel="external">github</a></p>
-<p><img src="assets/images/ai.jpg" alt="enter description here"></p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2016/12/14/title/#post-footer" class="postShorten-excerpt_link link">
-                                注释和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
+        <h1 class="post-title" itemprop="headline">
+            一个编程小白白的爬虫&amp;贝叶斯之旅（一）
+        </h1>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/12/14/一个编程小白白的爬虫&贝叶斯之旅（一）/">
-                            一个编程小白白的爬虫&amp;贝叶斯之旅（一）
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
+    <div class="post-meta">
     <time itemprop="datePublished" datetime="2016-12-14T14:48:47+08:00">
 	
 		    12月 14, 2016
@@ -273,10 +256,11 @@
     
 </div>
 
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>作为一只纯纯小白，第一次接触python&amp;爬虫&amp;文本分类，算是绝对的push自己接触新技术了，刚开始很方，每做一步都会继续慌下一步，所幸一步步做下来回头看感觉还不错嘛~</p>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>作为一只纯纯小白，第一次接触python&amp;爬虫&amp;文本分类，算是绝对的push自己接触新技术了，刚开始很方，每做一步都会继续慌下一步，所幸一步步做下来回头看感觉还不错嘛~</p>
 <h5 id="下面进入正题……"><a href="#下面进入正题……" class="headerlink" title="下面进入正题……"></a>下面进入正题……</h5><p>目标分阶段性有四：</p>
 <ol>
 <li>爬虫获取语料库</li>
@@ -312,81 +296,77 @@
 <p>有个point需要注意一下，我觉得应该是新浪有一定的反爬虫机制，爬大概10-20个页面就会报<code>IOError</code>，而且爬的速度明显比搜狐和凤凰慢很多，具体原因我也没搞明白，总之我在加了个异常处理，才让我的程序完整的跑完。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">try:</div><div class="line">     page = urllib.urlopen(url)</div><div class="line">except IOError:</div><div class="line">     print <span class="string">"Error:无法打开该网页"</span></div><div class="line">     return None</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="selector-tag">html</span> = page.read()</div><div class="line">	return html</div></pre></td></tr></table></figure></p>
 <p>爬完了要多少数据有多少数据的新浪滚动，反正我的每类两万是足够了，哦最后一个小问题，不要在限流量的地方爬虫，分分钟搞掉一个G，真的是每秒百兆啊，不说了，我去充网费了……</p>
 
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2016/12/14/一个编程小白白的爬虫&贝叶斯之旅（一）/#post-footer" class="postShorten-excerpt_link link">
-                                注释和共享
-                            </a>
-                        </p>
-                    
-                </div>
             
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/12/13/hello-world/">
-                            Hello World
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-12-13T17:18:17+08:00">
-	
-		    12月 13, 2016
-    	
-    </time>
-    
-</div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/python/">python</a> <a class="tag tag--primary tag--small t-link" href="/tags/文本分类/">文本分类</a>
 
             </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/14/title/"  data-tooltip="title">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/13/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
             
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2016/12/13/hello-world/#post-footer" class="postShorten-excerpt_link link">
-                                注释和共享
-                            </a>
-                        </p>
-                    
-                </div>
+                <a class="post-action-btn btn btn--default" href="#">
             
-        </div>
-        
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
-        
-        
-        <li class="pagination-number">第 1 页 共 1 页</li>
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+            
+        
+    </div>
+</article>
 
 
 
@@ -397,6 +377,83 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/14/title/"  data-tooltip="title">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/13/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
             
         </div>
         
@@ -531,6 +588,8 @@
         <!--SCRIPTS-->
 <script src="/assets/js/script-taaobz4ueybn54ikf9gtu3wlm8tpgzjkwfknygrtitquljbwokv26p56moto.min.js"></script>
 <!--SCRIPTS END-->
+
+    
 
 
 
