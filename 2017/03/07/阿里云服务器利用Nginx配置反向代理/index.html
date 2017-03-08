@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Lizany Li">
+    <title> - Lizany Li</title>
+    <meta name="author" content="Lizany Li">
+    
+    
+        <link rel="icon" href="https://lizanyroger.github.io../../../../assets/images/lo.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="../../../../atom.xml">
+    
+    <meta name="description" content="&amp;#x5B9E;&amp;#x9A8C;&amp;#x5BA4;&amp;#x5DE5;&amp;#x4F5C;&amp;#x9700;&amp;#x8981;&amp;#xFF0C;&amp;#x5728;&amp;#x963F;&amp;#x91CC;&amp;#x4E91;centOS&amp;#x670D;&amp;#x52A1;&amp;#x5668;&amp;#x4E0A;&amp;#x914D;&amp;#x7F6E;nginx&amp;#x53CD;&amp;#x5411;&amp;#x4EE3;&amp;#x7406;&amp;#xFF0C;&amp;#x5B">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Lizany Li">
+<meta property="og:url" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/index.html">
+<meta property="og:site_name" content="Lizany Li">
+<meta property="og:description" content="&amp;#x5B9E;&amp;#x9A8C;&amp;#x5BA4;&amp;#x5DE5;&amp;#x4F5C;&amp;#x9700;&amp;#x8981;&amp;#xFF0C;&amp;#x5728;&amp;#x963F;&amp;#x91CC;&amp;#x4E91;centOS&amp;#x670D;&amp;#x52A1;&amp;#x5668;&amp;#x4E0A;&amp;#x914D;&amp;#x7F6E;nginx&amp;#x53CD;&amp;#x5411;&amp;#x4EE3;&amp;#x7406;&amp;#xFF0C;&amp;#x5B">
+<meta property="og:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/实验过程1.png">
+<meta property="og:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/nginx-t命令结果.png">
+<meta property="og:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/反向代理过程.png">
+<meta property="og:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/正反向代理区别.jpg">
+<meta property="og:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/负载均衡.png">
+<meta property="og:updated_time" content="2017-03-08T09:25:57.666Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lizany Li">
+<meta name="twitter:description" content="&amp;#x5B9E;&amp;#x9A8C;&amp;#x5BA4;&amp;#x5DE5;&amp;#x4F5C;&amp;#x9700;&amp;#x8981;&amp;#xFF0C;&amp;#x5728;&amp;#x963F;&amp;#x91CC;&amp;#x4E91;centOS&amp;#x670D;&amp;#x52A1;&amp;#x5668;&amp;#x4E0A;&amp;#x914D;&amp;#x7F6E;nginx&amp;#x53CD;&amp;#x5411;&amp;#x4EE3;&amp;#x7406;&amp;#xFF0C;&amp;#x5B">
+<meta name="twitter:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/实验过程1.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://lizanyroger.github.io../../../../assets/images/glass.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="../../../../assets/css/style-sostf8a1aivpmdlygot3rltry8aweydwovdzyxr97qzr9cf2eciqkhffzoth.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="../../../../ ">Lizany Li</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon "
+                href="#about">
+        
+        
+            <i class="fa fa-lg fa-glass.jpg"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="../../../../#about">
+                        <img class="sidebar-profile-picture" src="../../../../assets/images/glass.jpg"/>
+                </a>
+                <h4 class="sidebar-profile-name">Lizany Li</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="../../../../ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="../../../../all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="../../../../all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="../../../../all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/lizanyRoger" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            (无标题)
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-03-07T21:32:56+08:00">
+	
+		    3月 07, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="../../../../categories/服务器相关/">服务器相关</a>
+
+
+    
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>&#x5B9E;&#x9A8C;&#x5BA4;&#x5DE5;&#x4F5C;&#x9700;&#x8981;&#xFF0C;&#x5728;&#x963F;&#x91CC;&#x4E91;centOS&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x914D;&#x7F6E;nginx&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x5B9E;&#x73B0;&#x5916;&#x7F51;&#x8BBF;&#x95EE;A:a&#x5730;&#x5740;&#x5B9E;&#x9645;&#x4E0A;&#x663E;&#x793A;&#x7684;&#x662F;B:a&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5C0F;&#x767D;&#x4E4B;&#x524D;&#x5BF9;&#x4E8E;nginx&#x548C;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x57FA;&#x672C;&#x90FD;&#x5904;&#x4E8E;&#x9ED1;&#x4EBA;&#x95EE;&#x53F7;&#x8138;.jpg&#x72B6;&#x6001;&#xFF0C;&#x6240;&#x4EE5;&#x501F;&#x8FD9;&#x4E2A;&#x673A;&#x4F1A;&#x4E5F;&#x5C0F;&#x5C0F;&#x5B66;&#x4E60;&#x4E86;&#x4E00;&#x4E0B;~</p>
+<a id="more"></a>
+<h4 id="&#x80CC;&#x666F;"><a href="#&#x80CC;&#x666F;" class="headerlink" title="&#x80CC;&#x666F;"></a>&#x80CC;&#x666F;</h4><p>&#x73B0;&#x6709;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;Server&#xFF08;&#x5C40;&#x57DF;&#x7F51;&#x5185;IP&#x4E3A;A&#xFF0C;&#x7AEF;&#x53E3;&#x4E3A;80&#xFF0C;&#x5916;&#x7F51;IP&#x4E3A;B&#xFF0C;&#x7AEF;&#x53E3;&#x4E3A;1111&#xFF09;&#xFF0C;&#x7531;&#x4E8E;&#x5404;&#x79CD;&#x539F;&#x56E0;&#xFF0C;&#x5728;&#x5916;&#x7F51;&#x67D0;&#x4E9B;&#x8FD0;&#x8425;&#x5546;&#x7684;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x73AF;&#x5883;&#x4E0B;&#x65E0;&#x6CD5;&#x8FDE;&#x63A5;B:1111&#xFF0C;&#x8FD9;&#x5BFC;&#x81F4;&#x8BE5;&#x7F51;&#x7AD9;&#x65E0;&#x6CD5;&#x4E3A;&#x5728;&#x4E0A;&#x8FF0;&#x7F51;&#x7EDC;&#x73AF;&#x5883;&#x4E0B;&#x7684;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x76F8;&#x5E94;&#x7684;&#x670D;&#x52A1;&#x3002;</p>
+<h4 id="&#x76EE;&#x7684;"><a href="#&#x76EE;&#x7684;" class="headerlink" title="&#x76EE;&#x7684;"></a>&#x76EE;&#x7684;</h4><p>&#x57FA;&#x4E8E;&#x4E0A;&#x8FF0;&#x80CC;&#x666F;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x6700;&#x7EC8;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x8BA9;&#x6240;&#x6709;&#x5916;&#x7F51;&#x7528;&#x6237;&#x90FD;&#x80FD;&#x5BF9;&#x7F51;&#x7AD9;&#x6B63;&#x5E38;&#x8BBF;&#x95EE;&#x3002;</p>
+<p>&#x73B0;&#x6709;&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;ALi_Server(&#x57DF;&#x540D;&#x4E3A;www.<em>*</em>.com&#xFF0C;IP&#x4E3A;C)&#xFF0C;&#x4E3A;&#x5B9E;&#x73B0;&#x6700;&#x7EC8;&#x76EE;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x505A;&#x7684;&#x662F;&#x5728;&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x914D;&#x7F6E;&#x6BCF;&#x5F53;&#x63A5;&#x6536;&#x5230;&#x8BBF;&#x95EE;C:1111&#x7684;request&#x65F6;&#xFF0C;&#x5C31;&#x5411;&#x670D;&#x52A1;&#x5668;Server&#x53D1;&#x9001;&#x8BF7;&#x6C42;&#x5E76;&#x83B7;&#x53D6;&#x5E94;&#x7B54;&#xFF0C;&#x5E76;&#x5C06;&#x83B7;&#x5F97;&#x7684;&#x5E94;&#x7B54;&#x4EE5;&#x81EA;&#x8EAB;&#x7684;&#x540D;&#x4E49;&#x5411;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x5E94;&#x7B54;&#x3002;</p>
+<p><img src="/2017/03/07/&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x5229;&#x7528;Nginx&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;/&#x5B9E;&#x9A8C;&#x8FC7;&#x7A0B;1.png" alt="img"></p>
+<h4 id="&#x6B65;&#x9AA4;"><a href="#&#x6B65;&#x9AA4;" class="headerlink" title="&#x6B65;&#x9AA4;"></a>&#x6B65;&#x9AA4;</h4><h6 id="1-&#x8FDE;&#x63A5;&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;"><a href="#1-&#x8FDE;&#x63A5;&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;" class="headerlink" title="1.&#x8FDE;&#x63A5;&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;"></a>1.&#x8FDE;&#x63A5;&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;</h6><p><code>ssh root@ip</code>  &#x518D;&#x8F93;&#x5165;&#x5BC6;&#x7801;&#x5C31;&#x8FDC;&#x7A0B;&#x767B;&#x5F55;&#x4E86;&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;</p>
+<h6 id="2-&#x4E0B;&#x8F7D;-amp-&#x5B89;&#x88C5;nginx"><a href="#2-&#x4E0B;&#x8F7D;-amp-&#x5B89;&#x88C5;nginx" class="headerlink" title="2.&#x4E0B;&#x8F7D;&amp;&#x5B89;&#x88C5;nginx"></a>2.&#x4E0B;&#x8F7D;&amp;&#x5B89;&#x88C5;nginx</h6><p><code>yum install nginx</code> &#x4E0B;&#x8F7D;nginx&#xFF0C;&#x9ED8;&#x8BA4;&#x8DEF;&#x5F84;&#x4E3A;/etc/nginx</p>
+<p><code>service nginx status</code> &#x67E5;&#x770B;nginx&#x72B6;&#x6001;&#xFF0C;&#x8FD4;&#x56DE;&#x5E94;&#x4E3A;nginx is stopped</p>
+<p><code>service nginx start</code> &#x542F;&#x52A8;nginx&#xFF0C;&#x8FD9;&#x91CC;&#x5E94;&#x8BE5;&#x4F1A;&#x62A5;&#x4E00;&#x4E2A;80&#x7AEF;&#x53E3;&#x88AB;&#x5360;&#x7528;&#x7684;&#x9519;&#xFF0C;&#x5982;&#x4E0B;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">nginx: [emerg] bind() to [::]:80 failed (98: Address already in <span class="keyword">use</span>)</div><div class="line">nginx: [emerg] bind() <span class="keyword">to</span> [::]:<span class="number">80</span> <span class="keyword">failed</span> (<span class="number">98</span>: Address already <span class="keyword">in</span> <span class="keyword">use</span>)</div><div class="line">nginx: [emerg] bind() <span class="keyword">to</span> [::]:<span class="number">80</span> <span class="keyword">failed</span> (<span class="number">98</span>: Address already <span class="keyword">in</span> <span class="keyword">use</span>)</div><div class="line">nginx: [emerg] bind() <span class="keyword">to</span> [::]:<span class="number">80</span> <span class="keyword">failed</span> (<span class="number">98</span>: Address already <span class="keyword">in</span> <span class="keyword">use</span>)</div></pre></td></tr></table></figure>
+<p>&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x82B1;&#x4E86;&#x5F88;&#x4E45;&#xFF0C;&#x6700;&#x540E;&#x8BC1;&#x660E;&#x662F;&#x81EA;&#x5DF1;&#x592A;&#x8822;&#x4E86;&#x3002;<strong>centOS&#x548C;Ubuntu&#x4E0D;&#x540C;&#xFF01;centOS&#x548C;Ubuntu&#x4E0D;&#x540C;&#xFF01;centOS&#x548C;Ubuntu&#x4E0D;&#x540C;&#xFF01;</strong>&#x91CD;&#x8981;&#x7684;&#x4E8B;&#x60C5;&#x8BF4;&#x4E09;&#x904D;&#xFF0C;&#x5C31;&#x662F;&#x56E0;&#x4E3A;&#x81EA;&#x5DF1;&#x4E0D;&#x4E86;&#x89E3;Linux&#x89C9;&#x5F97;&#x90FD;&#x5DEE;&#x4E0D;&#x591A;&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x76F4;&#x627E;&#x7684;&#x90FD;&#x662F;Ubuntu&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x7ED3;&#x679C;centOS&#x91CC;&#x538B;&#x6839;&#x5C31;&#x6CA1;&#x6709;&#x76F8;&#x5E94;&#x7684;<code>site-available</code>&#x4E0B;&#x7684;<code>default</code>&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x53C8;&#x5C1D;&#x8BD5;&#x67E5;&#x770B;&#x7AEF;&#x53E3;&#x8FD8;&#x5DEE;&#x4E00;&#x70B9;&#x5C31;&#x6740;&#x4E86;http&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x5E78;&#x4E8F;&#x89C9;&#x5F97;&#x662F;&#x670D;&#x52A1;&#x5668;&#x6CA1;&#x6562;&#x52A8;&#x624B;&#x4E0D;&#x7136;&#x5C31;go die&#x4E86;&#x3002;&#x6240;&#x4EE5;&#x4E0B;&#x9762;&#x4E5F;&#x7279;&#x610F;&#x5B66;&#x4E86;&#x4E00;&#x4E9B;centOS&#x548C;Ubuntu&#x7684;&#x533A;&#x522B;&#x3002;</p>
+<p>&#x4E0D;&#x8BF4;&#x5E9F;&#x8BDD;&#x4E86;&#xFF0C;&#x8BF4;&#x6B63;&#x786E;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x3002;&#x5728;/etc/nginx/conf.d/&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x6709;&#x4E00;&#x4E2A;default.conf&#x6587;&#x4EF6;&#xFF0C;&#x628A;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x6BB5;</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">server {</div><div class="line">    listen       <span class="number">80</span><span class="comment">;</span></div><div class="line">    server_name  localhost<span class="comment">;</span></div><div class="line">    &#xB7;&#xB7;&#xB7; &#xB7;&#xB7;&#xB7;</div></pre></td></tr></table></figure>
+<p>&#x4E2D;&#x7684;80&#x6539;&#x4E3A;&#x4E00;&#x4E2A;&#x7A7A;&#x95F2;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;&#x6BD4;&#x5982;8080&#xFF0C;&#x7136;&#x540E;&#x5C31;&#x597D;&#x4E86;</p>
+<p>&#x8FD0;&#x884C;<code>nginx -t</code>&#x67E5;&#x770B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x6B63;&#x786E;&#xFF0C;&#x5E94;&#x8FD4;&#x56DE;&#x4E0B;&#x56FE;&#x7ED3;&#x679C;</p>
+<p><img src="/2017/03/07/&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x5229;&#x7528;Nginx&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;/nginx-t&#x547D;&#x4EE4;&#x7ED3;&#x679C;.png" alt="img"></p>
+<p>&#x8BF4;&#x660E;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x7136;&#x540E;&#x8FD0;&#x884C;<code>service nginx start</code>&#x5F00;&#x542F;nginx&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x8F93;&#x5165;C:8080&#x53EF;&#x4EE5;&#x770B;&#x5230;nginx&#x7684;&#x6B22;&#x8FCE;&#x754C;&#x9762;&#xFF0C;&#x8BF4;&#x660E;nginx&#x5B89;&#x88C5;&#x6210;&#x529F;&#x4E86;~</p>
+<h6 id="3-&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;"><a href="#3-&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;" class="headerlink" title="3.&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;"></a>3.&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;</h6><p>&#x5728;conf.d&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x65B0;&#x5EFA;&#x6587;&#x4EF6;reserve_Proxy.conf, &#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="section">server</span> {</div><div class="line">    <span class="attribute">listen</span>       <span class="number">1111</span>;</div><div class="line">    <span class="attribute">server_name</span>  localhost;</div><div class="line"></div><div class="line">    <span class="attribute">location</span> / {</div><div class="line">        <span class="attribute">proxy_pass</span>  http://111.111.111.111:1111;</div><div class="line"></div><div class="line">        <span class="comment">#Proxy Settings</span></div><div class="line">        <span class="attribute">proxy_redirect</span>     <span class="literal">off</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>   Host             <span class="variable">$host</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>   X-Real-IP        <span class="variable">$remote_addr</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>   X-Forwarded-For  <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line">        <span class="attribute">proxy_next_upstream</span> <span class="literal">error</span> timeout invalid_header http_500 http_502 http_503 http_504;</div><div class="line">        <span class="attribute">proxy_connect_timeout</span>      <span class="number">90</span>;</div><div class="line">        <span class="attribute">proxy_send_timeout</span>         <span class="number">90</span>;</div><div class="line">        <span class="attribute">proxy_read_timeout</span>         <span class="number">90</span>;</div><div class="line">        <span class="attribute">proxy_buffer_size</span>          <span class="number">64k</span>;</div><div class="line">        <span class="attribute">proxy_buffers</span>              <span class="number">32</span> <span class="number">32k</span>;</div><div class="line">        <span class="attribute">proxy_busy_buffers_size</span>    <span class="number">128k</span>;</div><div class="line">        <span class="attribute">proxy_temp_file_write_size</span> <span class="number">64k</span>;</div><div class="line">     }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p><code>listen</code>&#x7684;&#x662F;client&#x8981;&#x8BBF;&#x95EE;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;<code>sever_name</code>&#x662F;&#x5F53;&#x524D;&#x7684;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x800C;&#x8981;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x7684;&#x670D;&#x52A1;&#x5668;ip&#x5730;&#x5740;&#x548C;&#x7AEF;&#x53E3;&#x586B;&#x5728;<code>proxy_pass</code>&#x540E;&#xFF0C;&#x540E;&#x9762;&#x5173;&#x4E8E;&#x7F13;&#x51B2;&#x533A;&#x7B49;&#x7B49;&#x7684;&#x8BBE;&#x7F6E;&#x4FDD;&#x6301;&#x539F;&#x6837;&#x5C31;&#x597D;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x9700;&#x6C42;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x8BE6;&#x7EC6;&#x8BBE;&#x7F6E;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x628A;&#x4E0A;&#x9762;&#x65B0;&#x5EFA;&#x7684;<code>reverse_Proxy.conf</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>include</code>&#x5230;<code>nginx.conf</code>&#x6587;&#x4EF6;&#x4E2D;&#x7684;<code>http</code>&#x8BBE;&#x7F6E;&#x4E2D;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x7684;<code>nginx.conf</code>&#x4E2D;&#x5199;&#x7684;&#x662F;<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="section">http</span> {</div><div class="line">    <span class="attribute">include</span>       /etc/nginx/mime.types;</div><div class="line">    <span class="attribute">default_type</span>  application/octet-stream;</div><div class="line"></div><div class="line">    <span class="attribute">log_format</span>  main  <span class="string">&apos;<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] &quot;<span class="variable">$request</span>&quot; &apos;</span></div><div class="line">                     <span class="string">&apos;<span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> &quot;<span class="variable">$http_referer</span>&quot; &apos;</span></div><div class="line">                      <span class="string">&apos;&quot;<span class="variable">$http_user_agent</span>&quot; &quot;<span class="variable">$http_x_forwarded_for</span>&quot;&apos;</span>;</div><div class="line"></div><div class="line">    <span class="attribute">access_log</span>  /var/log/nginx/access.log  main;</div><div class="line"></div><div class="line">    <span class="attribute">sendfile</span>        <span class="literal">on</span>;</div><div class="line">    <span class="comment">#tcp_nopush     on;</span></div><div class="line"></div><div class="line">    <span class="attribute">keepalive_timeout</span>  <span class="number">65</span>;</div><div class="line"></div><div class="line">    <span class="comment">#gzip  on;</span></div><div class="line"></div><div class="line">    <span class="attribute">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x6700;&#x540E;&#x4E00;&#x884C;<code>include</code>&#x4E86;<code>conf.d</code>&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x7684;&#x6240;&#x6709;<code>.conf</code>&#x6587;&#x4EF6;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x9700;&#x8981;&#x518D;&#x989D;&#x5916;<code>include</code>&#x4E86;&#x3002;</p>
+<p>&#x7136;&#x540E;&#x6267;&#x884C;<code>nginx -t</code>&#x786E;&#x8BA4;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x4E4B;&#x540E;&#xFF0C;&#x6267;&#x884C;<code>service nginx reload</code>(reload&#x4E3A;&#x4E0D;&#x95F4;&#x65AD;&#x670D;&#x52A1;&#x91CD;&#x542F;&#xFF0C;&#x800C;restart&#x4E3A;&#x91CD;&#x542F;)&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x662F;&#x6D4B;&#x8BD5;&#xFF0C;&#x968F;&#x4FBF;&#x627E;&#x4E00;&#x53F0;&#x7535;&#x8111;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x8F93;&#x5165;<code>www.***.com:1111</code>&#x6216;<code>C:1111</code>&#x4F1A;&#x663E;&#x793A;&#x51FA;&#x539F;&#x6765;&#x8BBF;&#x95EE;&#x670D;&#x52A1;&#x5668;Server<code>A:1111</code>&#x7684;&#x754C;&#x9762;&#xFF0C;&#x8BF4;&#x660E;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x8BBE;&#x7F6E;&#x6210;&#x529F;&#xFF01;</p>
+<p>&#x5982;&#x679C;&#x62A5;&#x9519;&#x6216;&#x8005;&#x672A;&#x51FA;&#x73B0;&#x9884;&#x60F3;&#x6548;&#x679C;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;<code>/var/log/nginx/</code>&#x8DEF;&#x5F84;&#x4E0B;&#x67E5;&#x770B;&#x65E5;&#x5FD7;&#x3002;</p>
+<p>&#x5230;&#x8FD9;&#x91CC;&#x57FA;&#x672C;&#x4E0A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x4E5F;&#x5C31;&#x642D;&#x597D;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x6C42;&#x7684;&#x4E5F;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x7B80;&#x5355;&#x7248;&#x672C;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x4E0D;&#x518D;&#x7EE7;&#x7EED;&#x6DF1;&#x5165;&#x7814;&#x7A76;&#x4E86;&#xFF0C;&#x4EE5;&#x540E;&#x5982;&#x679C;&#x518D;&#x641E;&#x8FD9;&#x4E2A;&#x6DF1;&#x5165;&#x8BBE;&#x7F6E;&#x7684;&#x8BDD;&#x5C31;&#x5199;&#x7EED;&#x96C6;~</p>
+<p>&#x867D;&#x7136;&#x5199;&#x7684;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x56E0;&#x4E3A;&#x5C0F;&#x767D;&#x662F;&#x7B2C;&#x4E00;&#x6B21;&#x505A;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x662F;&#x8D70;&#x4E86;&#x5F88;&#x591A;&#x5F2F;&#x8DEF;&#x624D;&#x6478;&#x7D22;&#x51FA;&#x7684;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x3002;&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x63D2;&#x66F2;&#xFF0C;&#x5B9E;&#x9A8C;&#x5BA4;&#x7684;&#x5185;&#x7F51;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;&#x670D;&#x52A1;&#x5668;server&#x7684;&#x5916;&#x7F51;&#x5730;&#x5740;&#xFF08;&#x611F;&#x89C9;&#x8FD9;&#x5E94;&#x8BE5;&#x662F;&#x4E2A;bug&#x2026; &#x2026;&#x56E7;&#xFF09;&#xFF0C;&#x56E0;&#x4E3A;&#x4E0D;&#x77E5;&#x9053;&#x662F;&#x5426;&#x4E0A;&#x8FF0;&#x7684;&#x6539;&#x52A8;&#x80FD;&#x5426;&#x6210;&#x529F;&#xFF0C;&#x5C31;&#x5148;&#x7528;&#x4E86;baidu&#x505A;&#x6D4B;&#x8BD5;&#xFF0C;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x4E86;502 <code>Bad Gateway</code>&#x9519;&#x8BEF;&#xFF0C;&#x8FD8;&#x65B9;&#x65B9;&#x7684;&#x4EE5;&#x4E3A;&#x662F;&#x81EA;&#x5DF1;&#x6CA1;&#x914D;&#x597D;&#xFF0C;&#x540E;&#x6765;&#x8BE6;&#x7EC6;&#x7684;&#x67E5;&#x4E86;&#x4E00;&#x4E0B;502&#x9519;&#x8BEF;&#x662F;&#x6765;&#x81EA;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684;&#xFF0C;&#x5176;&#x5B9E;&#x5E94;&#x8BE5;&#x662F;&#x767E;&#x5EA6;&#x8BBE;&#x7F6E;&#x4E86;&#x62D2;&#x7EDD;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x4E0D;&#x7136;&#x5982;&#x679C;&#x5141;&#x8BB8;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x5927;&#x6982;&#x4F1A;&#x51FA;&#x73B0;NN&#x591A;&#x7684;&#x9493;&#x9C7C;&#x7F51;&#x7AD9;&#x5427;&#xFF0C;&#x53EF;&#x6015;~~&#x6240;&#x4EE5;&#x5982;&#x679C;&#x771F;&#x7684;&#x627E;&#x6D4B;&#x8BD5;&#x670D;&#x52A1;&#x5668;&#x7684;&#x8BDD;&#xFF0C;&#x6700;&#x597D;&#x9009;&#x4E2A;&#x5C0F;&#x4F17;&#x7684;&#x4E0D;&#x90A3;&#x4E48;&#x91CD;&#x89C6;&#x5B89;&#x5168;&#x6027;&#x7684;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x7981;&#x7528;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x6069;&#xFF0C;&#x5C31;&#x9171;~</p>
+<h4 id="&#x77E5;&#x8BC6;&#x50A8;&#x5907;"><a href="#&#x77E5;&#x8BC6;&#x50A8;&#x5907;" class="headerlink" title="&#x77E5;&#x8BC6;&#x50A8;&#x5907;"></a>&#x77E5;&#x8BC6;&#x50A8;&#x5907;</h4><p>&#x8FD9;&#x90E8;&#x5206;&#x6309;&#x7167;&#x65F6;&#x95F4;&#x987A;&#x5E8F;&#xFF0C;&#x672C;&#x6765;&#x5E94;&#x8BE5;&#x662F;&#x653E;&#x5728;&#x6B65;&#x9AA4;&#x524D;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x51FA;&#x4E8E;&#x4E3B;&#x9898;&#x76F8;&#x5173;&#x7684;&#x89D2;&#x5EA6;&#x8FD8;&#x662F;&#x628A;&#x5B83;&#x653E;&#x5728;&#x6700;&#x540E;&#x3002;</p>
+<h5 id="1-&#x53CD;&#x5411;&#x4EE3;&#x7406;"><a href="#1-&#x53CD;&#x5411;&#x4EE3;&#x7406;" class="headerlink" title="1.&#x53CD;&#x5411;&#x4EE3;&#x7406;"></a>1.&#x53CD;&#x5411;&#x4EE3;&#x7406;</h5><p>&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF08;Reverse Proxy&#xFF09;&#x65B9;&#x5F0F;&#x662F;&#x6307;&#x4EE5;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x6765;&#x63A5;&#x53D7;internet&#x4E0A;&#x7684;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x7ED9;&#x5185;&#x90E8;&#x7F51;&#x7EDC;&#x4E0A;&#x7684;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5E76;&#x5C06;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;internet&#x4E0A;&#x8BF7;&#x6C42;&#x8FDE;&#x63A5;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x6B64;&#x65F6;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x5BF9;&#x5916;&#x5C31;&#x8868;&#x73B0;&#x201C;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x201D;&#x3002;&#x4E0B;&#x56FE;&#x6765;&#x6E90;&#x4E8E;&#x7F51;&#x7EDC;&#x3002;</p>
+<p><img src="/2017/03/07/&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x5229;&#x7528;Nginx&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;/&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x8FC7;&#x7A0B;.png" alt="img"></p>
+<p>&#x5148;&#x4E0A;&#x4E00;&#x5F20;&#x56FE;&#x8868;&#x660E;&#x4E00;&#x4E0B;&#x6211;&#x5BF9;&#x6B63;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x7684;&#x7406;&#x89E3;&#xFF0C;&#x6211;&#x89C9;&#x5F97;&#x77E5;&#x4E4E;&#x4E0A;&#x4E00;&#x4E2A;&#x56DE;&#x7B54;&#x5F88;&#x5F62;&#x8C61;&#xFF0C;&#x628A;&#x6B63;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x6BD4;&#x4F5C;&#x501F;&#x94B1;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x548C;&#x6B63;&#x5411;&#x4EE3;&#x7406;&#x5C31;&#x662F;&#x501F;&#x94B1;&#x4EBA;&#x6216;&#x88AB;&#x501F;&#x94B1;&#x4EBA;&#x90FD;&#x53EA;&#x77E5;&#x9053;&#x4E2D;&#x95F4;&#x4EBA;&#xFF0C;&#x800C;&#x4E0D;&#x77E5;&#x9053;&#x771F;&#x6B63;&#x7684;&#x88AB;&#x501F;&#x94B1;&#x4EBA;&#x6216;&#x501F;&#x94B1;&#x4EBA;&#x3002;</p>
+<p><img src="/2017/03/07/&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x5229;&#x7528;Nginx&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;/&#x6B63;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x533A;&#x522B;.jpg" alt="img"></p>
+<p>&#x5176;&#x5B9E;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x8FD9;&#x4E2A;&#x53EA;&#x80FD;&#x7B97;&#x662F;&#x7B80;&#x5355;&#x7684;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x6BD5;&#x7ADF;&#x6CA1;&#x6709;&#x90A3;&#x4E48;&#x591A;&#x5185;&#x90E8;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x53EA;&#x662F;&#x7528;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x505A;&#x4E86;ip&#x6620;&#x5C04;&#xFF08;&#x6216;&#x662F;&#x53EB;&#x8F6C;&#x53D1;&#xFF09;&#x3002;&#x4F46;&#x4F7F;&#x7528;&#x5F97;&#x5230;&#x7684;&#x4E00;&#x4E2A;&#x597D;&#x5904;&#x5C31;&#x662F;&#x9690;&#x85CF;&#x4E86;&#x771F;&#x6B63;&#x670D;&#x52A1;&#x5668;&#x7684;ip&#x5730;&#x5740;&#xFF0C;&#x8D77;&#x5230;&#x4E86;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x4FDD;&#x62A4;&#x7F51;&#x7AD9;&#x5B89;&#x5168;&#x7684;&#x4F5C;&#x7528;&#x3002;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x53EA;&#x662F;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;ip&#x6620;&#x5C04;&#xFF0C;&#x6240;&#x4EE5;&#x5E76;&#x6CA1;&#x6709;&#x6D89;&#x53CA;&#x5230;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF0C;&#x4F46;&#x8FD9;&#x91CC;&#x8FD8;&#x662F;&#x4E0A;&#x4E00;&#x5F20;&#x56FE;&#x5927;&#x6982;&#x5C55;&#x793A;&#x4E00;&#x4E0B;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x4E0B;&#x56FE;&#x6765;&#x6E90;&#x4E8E;&#x7F51;&#x7EDC;&#x3002;</p>
+<p><img src="/2017/03/07/&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x5229;&#x7528;Nginx&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;/&#x8D1F;&#x8F7D;&#x5747;&#x8861;.png" alt="img"></p>
+<h5 id="2-nginx"><a href="#2-nginx" class="headerlink" title="2.nginx"></a>2.nginx</h5><p>&#x5173;&#x4E8E;nginx&#x670D;&#x52A1;&#x5668;&#x7684;&#x4ECB;&#x7ECD;&#xFF0C;&#x8FD9;&#x7BC7;&#x6211;&#x89C9;&#x5F97;&#x5199;&#x7684;&#x4E0D;&#x9519;&#xFF0C;&#x7B80;&#x5355;&#x53C8;&#x6709;&#x903B;&#x8F91;&#xFF0C;&#x76F4;&#x63A5;&#x8D34;<a href="http://www.open-open.com/lib/view/open1417488526633.html" target="_blank" rel="external">&#x94FE;&#x63A5;</a>&#x5566;~</p>
+<p>&#x5173;&#x4E8E;nginx&#x7684;&#x5B89;&#x88C5;&#x548C;&#x7B80;&#x5355;&#x914D;&#x7F6E;&#xFF0C;&#x5728;&#x6B65;&#x9AA4;&#x91CC;&#x8BF4;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x518D;&#x8D58;&#x8FF0;&#x4E86;~</p>
+<h5 id="3-centOS&#x4E0E;Ubuntu"><a href="#3-centOS&#x4E0E;Ubuntu" class="headerlink" title="3.centOS&#x4E0E;Ubuntu"></a>3.centOS&#x4E0E;Ubuntu</h5><p>centOS&#x5C5E;&#x4E8E;redhat&#x7CFB;&#xFF0C;&#x7CFB;&#x7EDF;&#x7B80;&#x5355;&#xFF0C;&#x7A33;&#x5B9A;&#x6027;&#x597D;&#xFF0C;&#x65E0;&#x684C;&#x9762;&#x5F0F;&#x754C;&#x9762;&#xFF0C;&#x547D;&#x4EE4;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x8F6F;&#x4EF6;&#x7BA1;&#x7406;&#x662F;rpm&#xFF0C;&#x6709;&#x4E9B;&#x8F6F;&#x4EF6;&#x4E0D;&#x662F;&#x6700;&#x65B0;&#x7248;&#x7684;&#x800C;&#x662F;&#x6700;&#x7A33;&#x5B9A;&#x7248;&#x7684;&#xFF0C;&#x9002;&#x5408;&#x505A;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<p>Ubuntu&#x5C5E;&#x4E8E;Debian&#x7CFB;&#xFF0C;&#x6709;&#x826F;&#x597D;&#x7684;&#x754C;&#x9762;&#xFF0C;&#x7A33;&#x5B9A;&#x6027;&#x76F8;&#x5BF9;&#x8F83;&#x4E00;&#x822C;&#xFF0C;&#x8F6F;&#x4EF6;&#x7BA1;&#x7406;&#x662F;apt-get&#xFF0C;&#x76F8;&#x5173;apt&#x6E90;&#x66F4;&#x591A;&#x66F4;&#x65B0;&#xFF0C;&#x66F4;&#x9002;&#x5408;&#x4E2A;&#x4EBA;&#x4F7F;&#x7528;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4F5C;&#x4E3A;&#x957F;&#x671F;&#x4E0D;&#x91CD;&#x542F;&#x7684;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<p>&#x56E0;&#x4E3A;&#x4E24;&#x8005;&#x7684;&#x5305;&#x7BA1;&#x7406;&#x5DE5;&#x5177;&#x4E0D;&#x540C;&#xFF0C;&#x56E0;&#x6B64;&#x5305;&#x4E0B;&#x8F7D;&#x548C;&#x5B89;&#x88C5;&#x7684;&#x8FC7;&#x7A0B;&#x6709;&#x6240;&#x4E0D;&#x540C;&#xFF0C;&#x56DE;&#x5230;&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x67E5;&#x627E;&#x6559;&#x7A0B;&#x9700;&#x8981;&#x5206;&#x6E05;&#x8FD9;&#x4E24;&#x79CD;&#x7CFB;&#x7EDF;&#xFF0C;&#x4E0D;&#x53EF;&#x4E00;&#x6982;&#x800C;&#x8BBA;&#x3002;</p>
+<h5 id="4-curl-wget-ping"><a href="#4-curl-wget-ping" class="headerlink" title="4.curl, wget, ping"></a>4.curl, wget, ping</h5><p>&#x767E;&#x5EA6;&#x767E;&#x79D1;&#x5173;&#x4E8E;curl&#x7684;&#x5B9A;&#x4E49;&#x662F;&#x5229;&#x7528;url&#x8BED;&#x6CD5;&#x5728;&#x547D;&#x4EE4;&#x884C;&#x65B9;&#x5F0F;&#x4E0B;&#x5DE5;&#x4F5C;&#x7684;&#x5F00;&#x6E90;&#x6587;&#x4EF6;&#x4F20;&#x8F93;&#x5DE5;&#x5177;&#x3002;&#x5B83;&#x7531;<code>libcurl&#x5E93;</code>&#x652F;&#x6301;&#xFF0C;&#x80FD;&#x591F;&#x901A;&#x8FC7;http&#x3001;ftp&#x7B49;&#x65B9;&#x5F0F;&#x4E0B;&#x8F7D;&#x6587;&#x4EF6;&#xFF0C;&#x4E5F;&#x80FD;&#x591F;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#xFF0C;&#x652F;&#x6301;&#x8D85;&#x591A;&#x534F;&#x8BAE;&#xFF0C;&#x5982;FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS, FILE, POP3, IMAP, SMTP and RTSP&#xFF0C;&#x5B83;&#x6709;&#x5F88;&#x591A;&#x53C2;&#x6570;&#xFF0C;&#x5177;&#x4F53;&#x7528;&#x6CD5;&#x8BE6;&#x89C1;<a href="http://blog.csdn.net/lansesl2008/article/details/14523303" target="_blank" rel="external">&#x8FD9;&#x91CC;</a>&#xFF0C;&#x8FD9;&#x4E2A;&#x662F;&#x7B80;&#x5355;&#x4E00;&#x70B9;&#x7684;<a href="http://os.51cto.com/art/200909/153386.htm" target="_blank" rel="external">&#x4ECB;&#x7ECD;</a></p>
+<p>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF1A;<code>curl &#x53C2;&#x6570; http://www.baidu.com</code></p>
+<p>wget&#x4E5F;&#x662F;&#x4ECE;&#x7F51;&#x7EDC;&#x4E0A;&#x81EA;&#x52A8;&#x4E0B;&#x8F7D;&#x6587;&#x4EF6;&#x7684;&#x81EA;&#x7531;&#x5DE5;&#x5177;&#xFF0C;&#x652F;&#x6301;http,https,ftp&#x4E09;&#x79CD;&#x5E38;&#x89C1;&#x534F;&#x8BAE;&#xFF0C;&#x4E0E;curl&#x76F8;&#x6BD4;&#x652F;&#x6301;&#x9012;&#x5F52;&#x4E0B;&#x8F7D;&#xFF0C;&#x7528;&#x6CD5;&#x7C7B;&#x4F3C;&#xFF0C;&#x5177;&#x4F53;&#x770B;<a href="http://blog.csdn.net/endall/article/details/1571220" target="_blank" rel="external">&#x8FD9;&#x91CC;</a></p>
+<p>curl&#x548C;wget&#x53EF;&#x4F5C;&#x4E3A;&#x8F85;&#x52A9;&#x7684;&#x5C1D;&#x8BD5;&#x7F51;&#x7AD9;&#x80FD;&#x5426;&#x8FDE;&#x901A;&#x7684;&#x624B;&#x6BB5;&#xFF0C;&#x6709;&#x65F6;&#x5019;ping&#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x7981;&#x7528;&#xFF0C;ping&#x4E0D;&#x901A;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;curl&#x6216;wget</p>
+<p>ping&#x5C31;&#x662F;&#x7528;&#x6765;&#x68C0;&#x6D4B;&#x7F51;&#x7EDC;&#x662F;&#x5426;&#x8FDE;&#x901A;&#x7684;&#xFF0C;&#x5E2E;&#x52A9;&#x5206;&#x6790;&#x548C;&#x5224;&#x5B9A;&#x7F51;&#x7EDC;&#x6545;&#x969C;&#xFF0C;<a href="http://baike.baidu.com/link?url=P3wEVKkrruAju_Rqg7uk2k6-ZmVYfowF4GvgOTn9L1gSqw03tbiu-fyEGq7LOdVNwFyOJxrUJHE3Hoy6eb_mi_" target="_blank" rel="external">&#x767E;&#x5EA6;&#x767E;&#x79D1;</a>&#x8BB2;&#x7684;&#x5C31;&#x5F88;&#x5168;&#x5566;</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="../../../../tags/linux/">linux</a> <a class="tag tag--primary tag--small t-link" href="../../../../tags/nginx/">nginx</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="../../../../2016/12/30/一个编程小白白的爬虫&贝叶斯之旅（二）/" data-tooltip="一个编程小白白的爬虫&amp;贝叶斯之旅（二）">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>              
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="2017/03/07/阿里云服务器利用Nginx配置反向代理/"
+     data-title="" data-url="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/">
+</div>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Lizany Li. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="../../../../2016/12/30/一个编程小白白的爬虫&贝叶斯之旅（二）/" data-tooltip="一个编程小白白的爬虫&amp;贝叶斯之旅（二）">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>              
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="../../../../assets/images/glass.jpg"/>
+        
+            <h4 id="about-card-name">Lizany Li</h4>
+        
+            <h5 id="about-card-bio"><p>一只青春后期的欢脱小白</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>student</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Beijing
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                            <h3 class="media-heading">一个编程小白白的爬虫&amp;贝叶斯之旅（一）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2016年12月14日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>&#x4F5C;&#x4E3A;&#x4E00;&#x53EA;&#x7EAF;&#x7EAF;&#x5C0F;&#x767D;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x63A5;&#x89E6;python&amp;&#x722C;&#x866B;&amp;&#x6587;&#x672C;&#x5206;&#x7C7B;&#xFF0C;&#x7B97;&#x662F;&#x7EDD;&#x5BF9;&#x7684;push&#x81EA;&#x5DF1;&#x63A5;&#x89E6;&#x65B0;&#x6280;&#x672F;&#x4E86;&#xFF0C;&#x521A;&#x5F00;&#x59CB;&#x5F88;&#x65B9;&#xFF0C;&#x6BCF;&#x505A;&#x4E00;&#x6B65;&#x90FD;&#x4F1A;&#x7EE7;&#x7EED;&#x614C;&#x4E0B;&#x4E00;&#x6B65;&#xFF0C;&#x6240;&#x5E78;&#x4E00;&#x6B65;&#x6B65;&#x505A;&#x4E0B;&#x6765;&#x56DE;&#x5934;&#x770B;&#x611F;&#x89C9;&#x8FD8;&#x4E0D;&#x9519;&#x561B;~</p>
+<h5 id="&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x6B63;&#x9898;&#x2026;&#x2026;"><a href="#&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x6B63;&#x9898;&#x2026;&#x2026;" class="headerlink" title="&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x6B63;&#x9898;&#x2026;&#x2026;"></a>&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x6B63;&#x9898;&#x2026;&#x2026;</h5><p>&#x76EE;&#x6807;&#x5206;&#x9636;&#x6BB5;&#x6027;&#x6709;&#x56DB;&#xFF1A;</p>
+<ol>
+<li>&#x722C;&#x866B;&#x83B7;&#x53D6;&#x8BED;&#x6599;&#x5E93;</li>
+<li>&#x5BF9;&#x8BED;&#x6599;&#x5E93;&#x8FDB;&#x884C;&#x9884;&#x5904;&#x7406;&#xFF08;&#x5305;&#x62EC;&#x5206;&#x8BCD;&#x548C;&#x53BB;&#x505C;&#x7528;&#x8BCD;&#xFF09;</li>
+<li>&#x6784;&#x5EFA;&#x6570;&#x636E;&#x8BCD;&#x5178;&#xFF08;&#x8BAD;&#x7EC3;&#xFF09;</li>
+<li>&#x5BF9;&#x6D4B;&#x8BD5;&#x96C6;&#x5206;&#x7C7B;</li>
+</ol></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/">
+                            <h3 class="media-heading"></h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年3月7日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>&#x5B9E;&#x9A8C;&#x5BA4;&#x5DE5;&#x4F5C;&#x9700;&#x8981;&#xFF0C;&#x5728;&#x963F;&#x91CC;&#x4E91;centOS&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x914D;&#x7F6E;nginx&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x5B9E;&#x73B0;&#x5916;&#x7F51;&#x8BBF;&#x95EE;A:a&#x5730;&#x5740;&#x5B9E;&#x9645;&#x4E0A;&#x663E;&#x793A;&#x7684;&#x662F;B:a&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5C0F;&#x767D;&#x4E4B;&#x524D;&#x5BF9;&#x4E8E;nginx&#x548C;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x57FA;&#x672C;&#x90FD;&#x5904;&#x4E8E;&#x9ED1;&#x4EBA;&#x95EE;&#x53F7;&#x8138;.jpg&#x72B6;&#x6001;&#xFF0C;&#x6240;&#x4EE5;&#x501F;&#x8FD9;&#x4E2A;&#x673A;&#x4F1A;&#x4E5F;&#x5C0F;&#x5C0F;&#x5B66;&#x4E60;&#x4E86;&#x4E00;&#x4E0B;~</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2016/12/30/一个编程小白白的爬虫&amp;贝叶斯之旅（二）/">
+                            <h3 class="media-heading">一个编程小白白的爬虫&amp;贝叶斯之旅（二）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2016年12月30日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>&#x8BF4;&#x5B8C;&#x4E86;&#x8017;&#x65F6;&#x6700;&#x957F;&#x7684;&#x722C;&#x866B;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x8BF4;&#x8BF4;&#x540E;&#x9762;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x7684;&#x5C0F;&#x767D;&#x767D;&#x5DF2;&#x7ECF;&#x4E0D;&#x662F;&#x6700;&#x5F00;&#x59CB;&#x90A3;&#x4E2A;&#x7EAF;&#x7EAF;&#x5C0F;&#x767D;&#x4E86;&#xFF0C;&#x5BF9;python&#x7684;&#x719F;&#x6089;&#x4E86;&#x5F88;&#x591A;&#xFF0C;&#x518D;&#x52A0;&#x4E0A;&#x540E;&#x9762;&#x7684;&#x5DE5;&#x4F5C;&#x4E3B;&#x8981;&#x662F;&#x903B;&#x8F91;&#x6027;&#x5927;&#x4E8E;&#x8017;&#x65F6;&#x6027;&#xFF0C;&#x6240;&#x4EE5;&#x4E4B;&#x540E;&#x7684;&#x9884;&#x5904;&#x7406;&#x3001;&#x8BAD;&#x7EC3;&#x548C;&#x5206;&#x7C7B;&#x7528;&#x7684;&#x65F6;&#x95F4;&#x548C;&#x722C;&#x866B;&#x603B;&#x5171;&#x7528;&#x7684;&#x65F6;&#x95F4;&#x5DEE;&#x4E0D;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x6309;&#x7167;&#x65F6;&#x95F4;&#x5206;&#x5E03;&#x628A;&#x540E;&#x9762;&#x4E09;&#x90E8;&#x5206;&#x653E;&#x5728;&#x4E00;&#x8D77;&#x8BF4;&#x5566;~</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 3 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+        
+<div id="cover" style="background-image:url('../../../../assets/images/cover3.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="../../../../assets/js/script-taaobz4ueybn54ikf9gtu3wlm8tpgzjkwfknygrtitquljbwokv26p56moto.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'lizany'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('Z7A3XW4R2I', '12db1ad54372045549ef465881c17e743');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+    </body>
+</html>
