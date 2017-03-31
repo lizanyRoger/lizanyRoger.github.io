@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/反向代理过程.png">
 <meta property="og:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/正反向代理区别.jpg">
 <meta property="og:image" content="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/负载均衡.png">
-<meta property="og:updated_time" content="2017-03-08T09:27:39.716Z">
+<meta property="og:updated_time" content="2017-03-30T08:54:05.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阿里云服务器利用Nginx配置反向代理">
 <meta name="twitter:description" content="&amp;#x5B9E;&amp;#x9A8C;&amp;#x5BA4;&amp;#x5DE5;&amp;#x4F5C;&amp;#x9700;&amp;#x8981;&amp;#xFF0C;&amp;#x5728;&amp;#x963F;&amp;#x91CC;&amp;#x4E91;centOS&amp;#x670D;&amp;#x52A1;&amp;#x5668;&amp;#x4E0A;&amp;#x914D;&amp;#x7F6E;nginx&amp;#x53CD;&amp;#x5411;&amp;#x4EE3;&amp;#x7406;&amp;#xFF0C;&amp;#x5B">
@@ -200,7 +200,7 @@
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" datetime="2017-03-07T21:32:56+08:00">
+    <time itemprop="datePublished" datetime="2017-03-07T20:56:00+08:00">
 	
 		    3月 07, 2017
     	
@@ -246,7 +246,7 @@
 <p>&#x5230;&#x8FD9;&#x91CC;&#x57FA;&#x672C;&#x4E0A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x4E5F;&#x5C31;&#x642D;&#x597D;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x6C42;&#x7684;&#x4E5F;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x7B80;&#x5355;&#x7248;&#x672C;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x4E0D;&#x518D;&#x7EE7;&#x7EED;&#x6DF1;&#x5165;&#x7814;&#x7A76;&#x4E86;&#xFF0C;&#x4EE5;&#x540E;&#x5982;&#x679C;&#x518D;&#x641E;&#x8FD9;&#x4E2A;&#x6DF1;&#x5165;&#x8BBE;&#x7F6E;&#x7684;&#x8BDD;&#x5C31;&#x5199;&#x7EED;&#x96C6;~</p>
 <p>&#x867D;&#x7136;&#x5199;&#x7684;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x56E0;&#x4E3A;&#x5C0F;&#x767D;&#x662F;&#x7B2C;&#x4E00;&#x6B21;&#x505A;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x662F;&#x8D70;&#x4E86;&#x5F88;&#x591A;&#x5F2F;&#x8DEF;&#x624D;&#x6478;&#x7D22;&#x51FA;&#x7684;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x3002;&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x63D2;&#x66F2;&#xFF0C;&#x5B9E;&#x9A8C;&#x5BA4;&#x7684;&#x5185;&#x7F51;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;&#x670D;&#x52A1;&#x5668;server&#x7684;&#x5916;&#x7F51;&#x5730;&#x5740;&#xFF08;&#x611F;&#x89C9;&#x8FD9;&#x5E94;&#x8BE5;&#x662F;&#x4E2A;bug&#x2026; &#x2026;&#x56E7;&#xFF09;&#xFF0C;&#x56E0;&#x4E3A;&#x4E0D;&#x77E5;&#x9053;&#x662F;&#x5426;&#x4E0A;&#x8FF0;&#x7684;&#x6539;&#x52A8;&#x80FD;&#x5426;&#x6210;&#x529F;&#xFF0C;&#x5C31;&#x5148;&#x7528;&#x4E86;baidu&#x505A;&#x6D4B;&#x8BD5;&#xFF0C;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x4E86;502 <code>Bad Gateway</code>&#x9519;&#x8BEF;&#xFF0C;&#x8FD8;&#x65B9;&#x65B9;&#x7684;&#x4EE5;&#x4E3A;&#x662F;&#x81EA;&#x5DF1;&#x6CA1;&#x914D;&#x597D;&#xFF0C;&#x540E;&#x6765;&#x8BE6;&#x7EC6;&#x7684;&#x67E5;&#x4E86;&#x4E00;&#x4E0B;502&#x9519;&#x8BEF;&#x662F;&#x6765;&#x81EA;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684;&#xFF0C;&#x5176;&#x5B9E;&#x5E94;&#x8BE5;&#x662F;&#x767E;&#x5EA6;&#x8BBE;&#x7F6E;&#x4E86;&#x62D2;&#x7EDD;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x4E0D;&#x7136;&#x5982;&#x679C;&#x5141;&#x8BB8;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x5927;&#x6982;&#x4F1A;&#x51FA;&#x73B0;NN&#x591A;&#x7684;&#x9493;&#x9C7C;&#x7F51;&#x7AD9;&#x5427;&#xFF0C;&#x53EF;&#x6015;~~&#x6240;&#x4EE5;&#x5982;&#x679C;&#x771F;&#x7684;&#x627E;&#x6D4B;&#x8BD5;&#x670D;&#x52A1;&#x5668;&#x7684;&#x8BDD;&#xFF0C;&#x6700;&#x597D;&#x9009;&#x4E2A;&#x5C0F;&#x4F17;&#x7684;&#x4E0D;&#x90A3;&#x4E48;&#x91CD;&#x89C6;&#x5B89;&#x5168;&#x6027;&#x7684;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x7981;&#x7528;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x6069;&#xFF0C;&#x5C31;&#x9171;~</p>
 <h4 id="&#x77E5;&#x8BC6;&#x50A8;&#x5907;"><a href="#&#x77E5;&#x8BC6;&#x50A8;&#x5907;" class="headerlink" title="&#x77E5;&#x8BC6;&#x50A8;&#x5907;"></a>&#x77E5;&#x8BC6;&#x50A8;&#x5907;</h4><p>&#x8FD9;&#x90E8;&#x5206;&#x6309;&#x7167;&#x65F6;&#x95F4;&#x987A;&#x5E8F;&#xFF0C;&#x672C;&#x6765;&#x5E94;&#x8BE5;&#x662F;&#x653E;&#x5728;&#x6B65;&#x9AA4;&#x524D;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x51FA;&#x4E8E;&#x4E3B;&#x9898;&#x76F8;&#x5173;&#x7684;&#x89D2;&#x5EA6;&#x8FD8;&#x662F;&#x628A;&#x5B83;&#x653E;&#x5728;&#x6700;&#x540E;&#x3002;</p>
-<h5 id="1-&#x53CD;&#x5411;&#x4EE3;&#x7406;"><a href="#1-&#x53CD;&#x5411;&#x4EE3;&#x7406;" class="headerlink" title="1.&#x53CD;&#x5411;&#x4EE3;&#x7406;"></a>1.&#x53CD;&#x5411;&#x4EE3;&#x7406;</h5><p>&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF08;Reverse Proxy&#xFF09;&#x65B9;&#x5F0F;&#x662F;&#x6307;&#x4EE5;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x6765;&#x63A5;&#x53D7;internet&#x4E0A;&#x7684;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x7ED9;&#x5185;&#x90E8;&#x7F51;&#x7EDC;&#x4E0A;&#x7684;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5E76;&#x5C06;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;internet&#x4E0A;&#x8BF7;&#x6C42;&#x8FDE;&#x63A5;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x6B64;&#x65F6;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x5BF9;&#x5916;&#x5C31;&#x8868;&#x73B0;&#x201C;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x201D;&#x3002;&#x4E0B;&#x56FE;&#x6765;&#x6E90;&#x4E8E;&#x7F51;&#x7EDC;&#x3002;</p>
+<h5 id="1-&#x53CD;&#x5411;&#x4EE3;&#x7406;"><a href="#1-&#x53CD;&#x5411;&#x4EE3;&#x7406;" class="headerlink" title="1.&#x53CD;&#x5411;&#x4EE3;&#x7406;"></a>1.&#x53CD;&#x5411;&#x4EE3;&#x7406;</h5><p>&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF08;Reverse Proxy&#xFF09;&#x65B9;&#x5F0F;&#x662F;&#x6307;&#x4EE5;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x6765;&#x63A5;&#x53D7;internet&#x4E0A;&#x7684;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x7ED9;&#x5185;&#x90E8;&#x7F51;&#x7EDC;&#x4E0A;&#x7684;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5E76;&#x5C06;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;internet&#x4E0A;&#x8BF7;&#x6C42;&#x8FDE;&#x63A5;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x6B64;&#x65F6;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x5BF9;&#x5916;&#x5C31;&#x8868;&#x73B0;&#x4E3A;&#x4E00;&#x4E2A;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x3002;&#x901A;&#x5E38;&#x7684;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x53EA;&#x7528;&#x4E8E;&#x4EE3;&#x7406;&#x5185;&#x90E8;&#x7F51;&#x7EDC;&#x5BF9;Internet&#x7684;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;&#xFF0C;&#x5BA2;&#x6237;&#x673A;&#x5FC5;&#x987B;&#x6307;&#x5B9A;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;,&#x5E76;&#x5C06;&#x672C;&#x6765;&#x8981;&#x76F4;&#x63A5;&#x53D1;&#x9001;&#x5230;Web&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7684;http&#x8BF7;&#x6C42;&#x53D1;&#x9001;&#x5230;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x4E2D;&#x3002;&#x7531;&#x4E8E;&#x5916;&#x90E8;&#x7F51;&#x7EDC;&#x4E0A;&#x7684;&#x4E3B;&#x673A;&#x5E76;&#x4E0D;&#x4F1A;&#x914D;&#x7F6E;&#x5E76;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x666E;&#x901A;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x4E5F;&#x88AB;&#x8BBE;&#x8BA1;&#x4E3A;&#x5728;Internet&#x4E0A;&#x641C;&#x5BFB;&#x591A;&#x4E2A;&#x4E0D;&#x786E;&#x5B9A;&#x7684;&#x670D;&#x52A1;&#x5668;,&#x800C;&#x4E0D;&#x662F;&#x9488;&#x5BF9;Internet&#x4E0A;&#x591A;&#x4E2A;&#x5BA2;&#x6237;&#x673A;&#x7684;&#x8BF7;&#x6C42;&#x8BBF;&#x95EE;&#x67D0;&#x4E00;&#x4E2A;&#x56FA;&#x5B9A;&#x7684;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x56E0;&#x6B64;&#x666E;&#x901A;&#x7684;Web&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x4E0D;&#x652F;&#x6301;&#x5916;&#x90E8;&#x5BF9;&#x5185;&#x90E8;&#x7F51;&#x7EDC;&#x7684;&#x8BBF;&#x95EE;&#x8BF7;&#x6C42;&#x3002;&#x5F53;&#x4E00;&#x4E2A;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x80FD;&#x591F;&#x4EE3;&#x7406;&#x5916;&#x90E8;&#x7F51;&#x7EDC;&#x4E0A;&#x7684;&#x4E3B;&#x673A;&#xFF0C;&#x8BBF;&#x95EE;&#x5185;&#x90E8;&#x7F51;&#x7EDC;&#x65F6;&#xFF0C;&#x8FD9;&#x79CD;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x7684;&#x65B9;&#x5F0F;&#x79F0;&#x4E3A;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x3002;&#x6B64;&#x65F6;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x5BF9;&#x5916;&#x5C31;&#x8868;&#x73B0;&#x4E3A;&#x4E00;&#x4E2A;Web&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5916;&#x90E8;&#x7F51;&#x7EDC;&#x5C31;&#x53EF;&#x4EE5;&#x7B80;&#x5355;&#x628A;&#x5B83;&#x5F53;&#x4F5C;&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7684;Web&#x670D;&#x52A1;&#x5668;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x7279;&#x5B9A;&#x7684;&#x914D;&#x7F6E;&#x3002;&#x4E0D;&#x540C;&#x4E4B;&#x5904;&#x5728;&#x4E8E;&#xFF0C;&#x8FD9;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x6CA1;&#x6709;&#x4FDD;&#x5B58;&#x4EFB;&#x4F55;&#x7F51;&#x9875;&#x7684;&#x771F;&#x5B9E;&#x6570;&#x636E;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x9759;&#x6001;&#x7F51;&#x9875;&#x6216;&#x8005;CGI&#x7A0B;&#x5E8F;&#xFF0C;&#x90FD;&#x4FDD;&#x5B58;&#x5728;&#x5185;&#x90E8;&#x7684;Web&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x3002;&#x56E0;&#x6B64;&#x5BF9;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x7684;&#x653B;&#x51FB;&#x5E76;&#x4E0D;&#x4F1A;&#x4F7F;&#x5F97;&#x7F51;&#x9875;&#x4FE1;&#x606F;&#x906D;&#x5230;&#x7834;&#x574F;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x589E;&#x5F3A;&#x4E86;Web&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x5168;&#x6027;&#x3002;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x65B9;&#x5F0F;&#x548C;&#x5305;&#x8FC7;&#x6EE4;&#x65B9;&#x5F0F;&#x6216;&#x666E;&#x901A;&#x4EE3;&#x7406;&#x65B9;&#x5F0F;&#x5E76;&#x65E0;&#x51B2;&#x7A81;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x5728;&#x9632;&#x706B;&#x5899;&#x8BBE;&#x5907;&#x4E2D;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x8FD9;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x5176;&#x4E2D;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x7528;&#x4E8E;&#x5916;&#x90E8;&#x7F51;&#x7EDC;&#x8BBF;&#x95EE;&#x5185;&#x90E8;&#x7F51;&#x7EDC;&#x65F6;&#x4F7F;&#x7528;&#xFF0C;&#x6B63;&#x5411;&#x4EE3;&#x7406;&#x6216;&#x5305;&#x8FC7;&#x6EE4;&#x65B9;&#x5F0F;&#x7528;&#x4E8E;&#x62D2;&#x7EDD;&#x5176;&#x4ED6;&#x5916;&#x90E8;&#x8BBF;&#x95EE;&#x65B9;&#x5F0F;&#x5E76;&#x63D0;&#x4F9B;&#x5185;&#x90E8;&#x7F51;&#x7EDC;&#x5BF9;&#x5916;&#x90E8;&#x7F51;&#x7EDC;&#x7684;&#x8BBF;&#x95EE;&#x80FD;&#x529B;&#x3002;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x7ED3;&#x5408;&#x8FD9;&#x4E9B;&#x65B9;&#x5F0F;&#x63D0;&#x4F9B;&#x6700;&#x4F73;&#x7684;&#x5B89;&#x5168;&#x8BBF;&#x95EE;&#x65B9;&#x5F0F;&#x3002;&#x4E0B;&#x56FE;&#x6765;&#x6E90;&#x4E8E;&#x7F51;&#x7EDC;&#x3002;</p>
 <p><img src="/2017/03/07/&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x5229;&#x7528;Nginx&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;/&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x8FC7;&#x7A0B;.png" alt="img"></p>
 <p>&#x5148;&#x4E0A;&#x4E00;&#x5F20;&#x56FE;&#x8868;&#x660E;&#x4E00;&#x4E0B;&#x6211;&#x5BF9;&#x6B63;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x7684;&#x7406;&#x89E3;&#xFF0C;&#x6211;&#x89C9;&#x5F97;&#x77E5;&#x4E4E;&#x4E0A;&#x4E00;&#x4E2A;&#x56DE;&#x7B54;&#x5F88;&#x5F62;&#x8C61;&#xFF0C;&#x628A;&#x6B63;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x6BD4;&#x4F5C;&#x501F;&#x94B1;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x548C;&#x6B63;&#x5411;&#x4EE3;&#x7406;&#x5C31;&#x662F;&#x501F;&#x94B1;&#x4EBA;&#x6216;&#x88AB;&#x501F;&#x94B1;&#x4EBA;&#x90FD;&#x53EA;&#x77E5;&#x9053;&#x4E2D;&#x95F4;&#x4EBA;&#xFF0C;&#x800C;&#x4E0D;&#x77E5;&#x9053;&#x771F;&#x6B63;&#x7684;&#x88AB;&#x501F;&#x94B1;&#x4EBA;&#x6216;&#x501F;&#x94B1;&#x4EBA;&#x3002;</p>
 <p><img src="/2017/03/07/&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x5229;&#x7528;Nginx&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;/&#x6B63;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x533A;&#x522B;.jpg" alt="img"></p>
@@ -280,7 +280,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="../../30/pyramid框架——deform库执行表单操作（基础流程篇）/"  data-tooltip="Pyramid框架——deform库执行表单操作（基础流程篇）">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -347,7 +347,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="../../30/pyramid框架——deform库执行表单操作（基础流程篇）/"  data-tooltip="Pyramid框架——deform库执行表单操作（基础流程篇）">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -471,6 +471,44 @@
                 <div class="media">
                     
                     <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2017/03/30/pyramid框架——deform库执行表单操作（基础流程篇）/">
+                            <h3 class="media-heading">Pyramid框架——deform库执行表单操作（基础流程篇）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年3月30日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/">
+                            <h3 class="media-heading">阿里云服务器利用Nginx配置反向代理</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年3月7日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>&#x5B9E;&#x9A8C;&#x5BA4;&#x5DE5;&#x4F5C;&#x9700;&#x8981;&#xFF0C;&#x5728;&#x963F;&#x91CC;&#x4E91;centOS&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x914D;&#x7F6E;nginx&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x5B9E;&#x73B0;&#x5916;&#x7F51;&#x8BBF;&#x95EE;A:a&#x5730;&#x5740;&#x5B9E;&#x9645;&#x4E0A;&#x663E;&#x793A;&#x7684;&#x662F;B:a&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5C0F;&#x767D;&#x4E4B;&#x524D;&#x5BF9;&#x4E8E;nginx&#x548C;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x57FA;&#x672C;&#x90FD;&#x5904;&#x4E8E;&#x9ED1;&#x4EBA;&#x95EE;&#x53F7;&#x8138;.jpg&#x72B6;&#x6001;&#xFF0C;&#x6240;&#x4EE5;&#x501F;&#x8FD9;&#x4E2A;&#x673A;&#x4F1A;&#x4E5F;&#x5C0F;&#x5C0F;&#x5B66;&#x4E60;&#x4E86;&#x4E00;&#x4E0B;~</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
                         <a class="link-unstyled" href="https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
                             <h3 class="media-heading">一个编程小白白的爬虫&amp;贝叶斯之旅（一）</h3>
                         </a>
@@ -513,25 +551,6 @@
                     <hr>
                 </div>
                 
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/">
-                            <h3 class="media-heading">阿里云服务器利用Nginx配置反向代理</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2017年3月7日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>&#x5B9E;&#x9A8C;&#x5BA4;&#x5DE5;&#x4F5C;&#x9700;&#x8981;&#xFF0C;&#x5728;&#x963F;&#x91CC;&#x4E91;centOS&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x914D;&#x7F6E;nginx&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x5B9E;&#x73B0;&#x5916;&#x7F51;&#x8BBF;&#x95EE;A:a&#x5730;&#x5740;&#x5B9E;&#x9645;&#x4E0A;&#x663E;&#x793A;&#x7684;&#x662F;B:a&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5C0F;&#x767D;&#x4E4B;&#x524D;&#x5BF9;&#x4E8E;nginx&#x548C;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x57FA;&#x672C;&#x90FD;&#x5904;&#x4E8E;&#x9ED1;&#x4EBA;&#x95EE;&#x53F7;&#x8138;.jpg&#x72B6;&#x6001;&#xFF0C;&#x6240;&#x4EE5;&#x501F;&#x8FD9;&#x4E2A;&#x673A;&#x4F1A;&#x4E5F;&#x5C0F;&#x5C0F;&#x5B66;&#x4E60;&#x4E86;&#x4E00;&#x4E0B;~</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
             </div>
         </div>
         <div class="modal-footer">
@@ -539,7 +558,7 @@
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 3 篇文章
+                找到 4 篇文章
             </p>
         </div>
     </div>
