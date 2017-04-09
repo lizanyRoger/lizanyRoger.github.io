@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Lizany Li">
+    <title>Pyramid框架——deform库执行表单操作（验证器&amp;序列化篇） - Lizany Li</title>
+    <meta name="author" content="Lizany Li">
+    
+    
+        <link rel="icon" href="https://lizanyroger.github.io../../../../assets/images/lo.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="../../../../atom.xml">
+    
+    <meta name="description" content="deform&amp;#x63D0;&amp;#x4F9B;&amp;#x4E00;&amp;#x4E9B;&amp;#x9ED8;&amp;#x8BA4;&amp;#x7684;&amp;#x5E26;&amp;#x6709;&amp;#x57FA;&amp;#x7840;&amp;#x529F;&amp;#x80FD;&amp;#x7684;&amp;#x9A8C;&amp;#x8BC1;&amp;#x5668;&amp;#xFF0C;&amp;#x9664;&amp;#x9ED8;&amp;#x8BA4;&amp;#x9A8C;&amp;#x8BC1;&amp;#x5668;&amp;#">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Pyramid框架——deform库执行表单操作（验证器&序列化篇）">
+<meta property="og:url" content="https://lizanyroger.github.io/2017/04/09/pyramid框架——deform库执行表单操作（验证器&序列化篇）/index.html">
+<meta property="og:site_name" content="Lizany Li">
+<meta property="og:description" content="deform&amp;#x63D0;&amp;#x4F9B;&amp;#x4E00;&amp;#x4E9B;&amp;#x9ED8;&amp;#x8BA4;&amp;#x7684;&amp;#x5E26;&amp;#x6709;&amp;#x57FA;&amp;#x7840;&amp;#x529F;&amp;#x80FD;&amp;#x7684;&amp;#x9A8C;&amp;#x8BC1;&amp;#x5668;&amp;#xFF0C;&amp;#x9664;&amp;#x9ED8;&amp;#x8BA4;&amp;#x9A8C;&amp;#x8BC1;&amp;#x5668;&amp;#">
+<meta property="og:updated_time" content="2017-04-09T12:14:42.147Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pyramid框架——deform库执行表单操作（验证器&序列化篇）">
+<meta name="twitter:description" content="deform&amp;#x63D0;&amp;#x4F9B;&amp;#x4E00;&amp;#x4E9B;&amp;#x9ED8;&amp;#x8BA4;&amp;#x7684;&amp;#x5E26;&amp;#x6709;&amp;#x57FA;&amp;#x7840;&amp;#x529F;&amp;#x80FD;&amp;#x7684;&amp;#x9A8C;&amp;#x8BC1;&amp;#x5668;&amp;#xFF0C;&amp;#x9664;&amp;#x9ED8;&amp;#x8BA4;&amp;#x9A8C;&amp;#x8BC1;&amp;#x5668;&amp;#">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://lizanyroger.github.io../../../../assets/images/glass.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="../../../../assets/css/style-sostf8a1aivpmdlygot3rltry8aweydwovdzyxr97qzr9cf2eciqkhffzoth.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="../../../../ ">Lizany Li</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon "
+                href="#about">
+        
+        
+            <i class="fa fa-lg fa-glass.jpg"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="../../../../#about">
+                        <img class="sidebar-profile-picture" src="../../../../assets/images/glass.jpg"/>
+                </a>
+                <h4 class="sidebar-profile-name">Lizany Li</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="../../../../ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="../../../../all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="../../../../all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="../../../../all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/lizanyRoger" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-04-09T19:54:00+08:00">
+	
+		    4月 09, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="../../../../categories/python/">python</a>
+
+
+    
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p><code>deform</code>&#x63D0;&#x4F9B;&#x4E00;&#x4E9B;&#x9ED8;&#x8BA4;&#x7684;&#x5E26;&#x6709;&#x57FA;&#x7840;&#x529F;&#x80FD;&#x7684;&#x9A8C;&#x8BC1;&#x5668;&#xFF0C;&#x9664;&#x9ED8;&#x8BA4;&#x9A8C;&#x8BC1;&#x5668;&#x5916;&#xFF0C;&#x8FD8;&#x53EF;&#x6839;&#x636E;&#x9700;&#x8981;&#x81EA;&#x5B9A;&#x4E49;&#x9A8C;&#x8BC1;&#x5668;&#x3002;<code>deform</code>&#x7684;&#x9A8C;&#x8BC1;&#x5668;&#x5206;&#x4E3A;&#x4E24;&#x79CD;&#xFF0C;&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#x548C;&#x8868;&#x5355;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#x3002;&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#x9488;&#x5BF9;&#x5355;&#x4E2A;&#x6A21;&#x5F0F;&#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x3002;</p>
+<p>&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x662F;&#x9488;&#x5BF9;&#x7F51;&#x9875;&#x663E;&#x793A;&#x7684;&#x6570;&#x636E;&#x548C;<code>pyramid deform</code>&#x8868;&#x5355;&#x7ED3;&#x6784;&#x7684;&#x76F8;&#x4E92;&#x8F6C;&#x5316;&#x8FC7;&#x7A0B;&#xFF0C;&#x5E8F;&#x5217;&#x5316;<code>serialize</code>&#x662F;&#x5C06;<code>appstruct</code>&#x7ED3;&#x6784;&#x8F6C;&#x6362;&#x6210;&#x663E;&#x793A;&#x7ED9;&#x7528;&#x6237;&#x7684;&#x8868;&#x5355;&#xFF0C;&#x53CD;&#x5E8F;&#x5217;&#x5316;<code>deserialize</code>&#x662F;&#x5C06;&#x7528;&#x6237;&#x63D0;&#x4EA4;&#x7684;&#x8868;&#x5355;&#x8F6C;&#x6362;&#x6210;<code>appstruct</code>&#x7ED3;&#x6784;&#x7ED9;&#x540E;&#x53F0;<code>deform</code>&#x5E93;&#x505A;&#x6570;&#x636E;&#x5904;&#x7406;&#x4E0E;&#x9A8C;&#x8BC1;&#x3002;</p>
+<a id="more"></a>
+<h4 id="&#x9ED8;&#x8BA4;Colander&#x9A8C;&#x8BC1;&#x5668;"><a href="#&#x9ED8;&#x8BA4;Colander&#x9A8C;&#x8BC1;&#x5668;" class="headerlink" title="&#x9ED8;&#x8BA4;Colander&#x9A8C;&#x8BC1;&#x5668;"></a><a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#validators" target="_blank" rel="external">&#x9ED8;&#x8BA4;Colander&#x9A8C;&#x8BC1;&#x5668;</a></h4><ul>
+<li><a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#colander.Email" target="_blank" rel="external"><code>colander.Email</code></a>  &#x9A8C;&#x8BC1;Email&#x5730;&#x5740;&#x683C;&#x5F0F;</li>
+<li><a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#colander.Length" target="_blank" rel="external"><code>colander.Length</code></a>  &#x53C2;&#x6570;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</li>
+<li><a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#colander.Range" target="_blank" rel="external"><code>colander.Range</code></a>  &#x8303;&#x56F4;&#x9A8C;&#x8BC1;</li>
+<li><a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#colander.Any" target="_blank" rel="external"><code>colander.Any</code></a>  &#x9A8C;&#x8BC1;&#x5B50;&#x9A8C;&#x8BC1;&#x5668;&#x662F;&#x5426;&#x6210;&#x529F;&#x9A8C;&#x8BC1;</li>
+<li><a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#colander.Function" target="_blank" rel="external"><code>colander.Function</code></a>  &#x63A5;&#x6536;&#x51FD;&#x6570;&#x548C;&#x53EF;&#x9009;&#x53C2;&#x6570;&#x7684;&#x9A8C;&#x8BC1;&#x5668;&#xFF08;&#x51FD;&#x6570;&#x5728;&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;&#x4E2D;&#x88AB;&#x8C03;&#x7528;&#xFF09;</li>
+<li><a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#colander.OneOf" target="_blank" rel="external"><code>colander.OneOf</code></a>  &#x9A8C;&#x8BC1;&#x4F20;&#x9012;&#x503C;&#x662F;&#x5426;&#x5728;&#x96C6;&#x5408;&#x4E2D;</li>
+<li><a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#colander.NoneOf" target="_blank" rel="external"><code>colander.NoneOf</code></a>  </li>
+<li>&#x66F4;&#x591A;&#x9ED8;&#x8BA4;&#x9A8C;&#x8BC1;&#x5668;&#x5728;&#x53C2;&#x8003;&#x6587;&#x6863;&#x4E0A;&#x8FD8;&#x6709;&#x5217;&#x4E3E;&#xFF0C;&#x5982;<code>all</code>,<code>Regex</code>,<code>Containsonly</code>,<code>luhnok</code>,<code>url</code>,<code>uuid</code>&#x7B49;</li>
+</ul>
+<p>&#x7528;&#x6CD5;&#x793A;&#x4F8B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="type">NewsletterSender</span>(<span class="type">CSRFSchema</span>):</span></div><div class="line">    preview = colander.<span class="type">SchemaNode</span>(<span class="title">colander</span>.<span class="type">Boolean</span>())</div><div class="line">    # <span class="type">Validate</span> emaik</div><div class="line">    email = colander.<span class="type">SchemaNode</span>(<span class="title">colander</span>.<span class="type">String</span>(), validator=colander.<span class="type">Email</span>(), missing=colander.<span class="type">Drop</span>)</div></pre></td></tr></table></figure>
+<h4 id="&#x81EA;&#x5B9A;&#x4E49;&#x9A8C;&#x8BC1;&#x5668;"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x9A8C;&#x8BC1;&#x5668;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x9A8C;&#x8BC1;&#x5668;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x9A8C;&#x8BC1;&#x5668;</h4><p>&#x9664;&#x4E86;&#x4E0A;&#x8FF0;&#x9ED8;&#x8BA4;&#x7684;&#x9A8C;&#x8BC1;&#x5668;&#x5916;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x9A8C;&#x8BC1;&#x5668;&#x5BF9;&#x8868;&#x5355;&#x63D0;&#x4EA4;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x3002;&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#xFF0C;&#x987E;&#x540D;&#x601D;&#x4E49;&#xFF0C;&#x5C31;&#x662F;&#x9A8C;&#x8BC1;&#x67D0;&#x4E2A;&#x5B57;&#x6BB5;&#x662F;&#x5426;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x6DFB;&#x52A0;&#x5728;&#x6A21;&#x5F0F;&#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x7684;&#x5B9E;&#x4F8B;&#x5B9A;&#x4E49;&#x8BED;&#x53E5;&#x4E2D;&#xFF1B;&#x8868;&#x5355;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#xFF0C;&#x7EFC;&#x5408;&#x9A8C;&#x8BC1;&#x591A;&#x4E2A;&#x5B57;&#x6BB5;&#x95F4;&#x7684;&#x5BF9;&#x5E94;&#x5173;&#x7CFB;&#xFF0C;&#x6DFB;&#x52A0;&#x5728;&#x5B9A;&#x4E49;<code>schema</code>&#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#x7684;&#x8BED;&#x53E5;&#x4E2D;&#x3002;</p>
+<p>&#x6267;&#x884C;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x662F;&#xFF1A;&#x5148;&#x6267;&#x884C;&#x6240;&#x6709;&#x7684;&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#xFF0C;&#x5BF9;&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x5355;&#x72EC;&#x9A8C;&#x8BC1;&#x90FD;&#x901A;&#x8FC7;&#x540E;&#xFF0C;&#x5728;&#x6267;&#x884C;&#x8868;&#x5355;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#xFF0C;&#x9A8C;&#x8BC1;&#x5B57;&#x6BB5;&#x95F4;&#x662F;&#x5426;&#x6B63;&#x786E;&#x5BF9;&#x5E94;&#x3002;</p>
+<h5 id="1-&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;"><a href="#1-&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;" class="headerlink" title="1.&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;"></a>1.&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;</h5><p>&#x5148;&#x6765;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x8BF4;&#x660E;&#x4E00;&#x4E0B;&#x539F;&#x7406;~</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">def username_validator(<span class="keyword">node</span><span class="title">,value</span>):</div><div class="line">   <span class="keyword">user</span> <span class="title">= self</span>.request.dbsession.query(User)</div><div class="line">       .filter_by(<span class="attr">id=</span>value).first()</div><div class="line">   if not user:</div><div class="line">       raise colander.Invalid(<span class="keyword">node</span><span class="title">,&apos;&#x7528;&#x6237; %s</span> &#x4E0D;&#x5B58;&#x5728;&apos; % value)</div><div class="line"></div><div class="line">class Log<span class="literal">inF</span>ormSchema(colander.MappingSchema):         </div><div class="line">   login = colander.SchemaNode(colander.Str(),</div><div class="line">       <span class="attr">validator=</span>username_validator)</div><div class="line">   password = colander.SchemaNode(colander.Str())</div></pre></td></tr></table></figure>
+<p>&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;<code>username_validator</code>&#x7684;&#x9A8C;&#x8BC1;&#x65B9;&#x6CD5;&#xFF0C;<code>node</code>&#x662F;&#x9700;&#x8981;&#x9A8C;&#x8BC1;&#x7684;&#x5B57;&#x6BB5;&#x5BF9;&#x8C61;&#xFF0C;<code>value</code>&#x662F;&#x8BE5;&#x5B57;&#x6BB5;&#x7684;&#x503C;&#x3002;&#x6839;&#x636E;&#x7528;&#x6237;&#x6570;&#x7684;&#x8BE5;&#x5B57;&#x6BB5;&#x503C;&#x67E5;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#x5219;&#x7531;raise&#x8BED;&#x53E5;&#x89E6;&#x53D1;<a href="http://docs.pylonsproject.org/projects/colander/en/latest/api.html#colander.Invalid" target="_blank" rel="external">colander.Invalid</a>&#x5F02;&#x5E38;&#xFF0C;&#x53EF;&#x5728;&#x63D0;&#x4EA4;&#x89E6;&#x53D1;&#x8BE5;&#x5F02;&#x5E38;&#x65F6;&#x5728;&#x524D;&#x7AEF;&#x7F51;&#x9875;&#x4E0A;&#x663E;&#x793A;&#x201C;&#x7528;&#x6237;**&#x4E0D;&#x5B58;&#x5728;&#x201D;&#x3002;</p>
+<p>&#x518D;&#x6765;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x56E0;&#x4E3A;&#x6D89;&#x53CA;&#x5230;<code>request</code>&#x548C;<code>dbsession</code>&#x7684;&#x4F20;&#x9012;&#xFF0C;&#x4E4B;&#x524D;&#x5199;<code>pyramid</code>&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x7528;<code>scaffold</code>&#x5EFA;&#x7ACB;<code>alchemy</code>&#x9879;&#x76EE;&#x540E;&#xFF0C;<code>dbsession</code>&#x5C5E;&#x4E8E;<code>request</code>&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4ECE;<code>models</code>&#x4E2D;&#x76F4;&#x63A5;<code>import</code>&#x5C31;&#x53EF;&#x4EE5;&#x7684;&#xFF0C;&#x4E0B;&#x4F8B;&#x4E2D;&#x5229;&#x7528;<code>node.bindings</code>&#x5C06;<code>request</code>&#x4F20;&#x4E86;&#x8FDB;&#x6765;&#xFF0C;&#x4F46;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD9;&#x4E48;&#x505A;&#x8868;&#x793A;&#x4E5F;&#x4E0D;&#x662F;&#x5F88;&#x7406;&#x89E3;&#x3002;&#xFF08;&#x8FD9;&#x662F;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E2D;&#x7684;&#x4F8B;&#x5B50;&#xFF09;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_unique_user_email</span><span class="params">(node, value, **kwargs)</span>:</span></div><div class="line"><span class="string">&quot;&quot;&quot;Prevent duplicate usernames.&quot;&quot;&quot;</span></div><div class="line"></div><div class="line">    request = node.bindings[<span class="string">&quot;request&quot;</span>]</div><div class="line">    dbsession = request.dbsession</div><div class="line">    User = get_user_class(request.registry)</div><div class="line">    <span class="keyword">if</span> dbsession.query(User).filter_by(email=value).first():</div><div class="line">        <span class="keyword">raise</span> colander.Invalid(node, <span class="string">&quot;Email address already taken&quot;</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySchema</span><span class="params">(CSRFSchema)</span>:</span></div><div class="line">    email = colander.SchemaNode(colander.String(), validator=validate_unique_user_email)</div></pre></td></tr></table></figure>
+<h5 id="2-&#x8868;&#x5355;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;"><a href="#2-&#x8868;&#x5355;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;" class="headerlink" title="2.&#x8868;&#x5355;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;"></a>2.&#x8868;&#x5355;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;</h5><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def password<span class="number">_</span>validator(form,<span class="keyword">value</span>):</div><div class="line">    user = <span class="keyword">value</span>[<span class="string">&apos;login&apos;</span>]</div><div class="line">    password = <span class="keyword">value</span>[<span class="string">&apos;password&apos;</span>]</div><div class="line">    user = self.request.dbsession.query(User)</div><div class="line">        .filter<span class="number">_</span><span class="meta">by</span>(id=username).first()</div><div class="line">    <span class="keyword">if</span> user.password != password:</div><div class="line">        raise colander.Invalid(form,<span class="string">&apos;&#x5BC6;&#x7801;&#x9519;&#x8BEF;&apos;</span>)</div><div class="line">        </div><div class="line">schema = LoginFormSchema(validator=password<span class="number">_</span>validator)</div></pre></td></tr></table></figure>
+<p>&#x4EE3;&#x7801;&#x6BD4;&#x8F83;&#x6E05;&#x6670;&#x4E86;&#xFF0C;<code>password_validator</code>&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#x7684;&#x662F;<code>form</code>&#x548C;<code>value</code>&#xFF0C;&#x5373;&#x8868;&#x5355;&#x7684;&#x5168;&#x90E8;&#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x548C;&#x5B57;&#x6BB5;&#x503C;&#xFF0C;&#x7136;&#x540E;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x7528;&#x6237;&#x540D;&#x67E5;&#x5E93;&#x627E;&#x5BF9;&#x5E94;&#x7684;&#x5BC6;&#x7801;&#xFF0C;&#x9A8C;&#x8BC1;&#x548C;&#x7528;&#x6237;&#x8F93;&#x5165;&#x7684;&#x662F;&#x5426;&#x5BF9;&#x5E94;&#x3002;</p>
+<h4 id="&#x8868;&#x5355;&#x63D0;&#x4EA4;&#x540E;&#x7684;&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;"><a href="#&#x8868;&#x5355;&#x63D0;&#x4EA4;&#x540E;&#x7684;&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x8868;&#x5355;&#x63D0;&#x4EA4;&#x540E;&#x7684;&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;"></a>&#x8868;&#x5355;&#x63D0;&#x4EA4;&#x540E;&#x7684;&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;</h4><p>&#x5728;&#x7528;&#x6237;&#x63D0;&#x4EA4;&#x8868;&#x5355;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x9A8C;&#x8BC1;&#x5668;&#x5C31;&#x8981;&#x53D1;&#x6325;&#x4F5C;&#x7528;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x5982;&#x4F55;&#x5B9A;&#x4E49;&#x63D0;&#x4EA4;&#x4E4B;&#x540E;&#x7684;&#x4E00;&#x7CFB;&#x5217;&#x52A8;&#x4F5C;&#xFF0C;&#x4EE5;&#x53CA;&#x5982;&#x4F55;&#x5904;&#x7406;&#x5F02;&#x5E38;&#xFF0C;&#x7F16;&#x7801;&#x903B;&#x8F91;&#x4E0A;&#x6709;&#x51E0;&#x4EF6;&#x5FC5;&#x987B;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x76D1;&#x6D4B;&#x63D0;&#x4EA4;&#x6309;&#x94AE;&#x88AB;&#x70B9;&#x51FB;&#x7684;&#x52A8;&#x4F5C;</li>
+<li>&#x4ECE;&#x8868;&#x5355;POST&#x7684;&#x6570;&#x636E;&#x4E2D;&#x83B7;&#x5F97;the list of <a href="http://docs.pylonsproject.org/projects/deform/en/latest/glossary.html#term-form-controls" target="_blank" rel="external">form controls</a></li>
+<li>&#x5BF9;<code>the list of form controls</code>&#x8C03;&#x7528;<code>deform.Form.validate()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9A8C;&#x8BC1;&#x6210;&#x529F;&#x540E;&#x7684;<code>appstruct</code></li>
+<li>&#x6355;&#x83B7;<a href="http://docs.pylonsproject.org/projects/deform/en/latest/api.html#deform.ValidationFailure" target="_blank" rel="external"><code>deform.ValidationFailure</code></a>&#x5F02;&#x5E38;&#xFF0C;&#x5E76;&#x5728;&#x9519;&#x8BEF;&#x51FA;&#x73B0;&#x65F6;&#x5411;&#x7F51;&#x9875;&#x6E32;&#x67D3;&#x9519;&#x8BEF;&#x4FE1;&#x606F;</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="string">&apos;submit&apos;</span> <span class="keyword">in</span> request.POST: <span class="comment"># detect that the submit button was clicked</span></div><div class="line"></div><div class="line">    controls = request.POST.items() <span class="comment"># get the form controls</span></div><div class="line"></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        appstruct = myform.validate(controls)  <span class="comment"># call validate</span></div><div class="line">    <span class="keyword">except</span> ValidationFailure <span class="keyword">as</span> e: <span class="comment"># catch the exception</span></div><div class="line">        <span class="keyword">return</span> {<span class="string">&apos;form&apos;</span>:e.render()} <span class="comment"># re-render the form with an exception</span></div><div class="line"></div><div class="line">    <span class="comment"># the form submission succeeded, we have the data</span></div><div class="line">    <span class="keyword">return</span> {<span class="string">&apos;form&apos;</span>:<span class="keyword">None</span>, <span class="string">&apos;appstruct&apos;</span>:appstruct}</div></pre></td></tr></table></figure>
+<p>&#x4E0A;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x8868;&#x793A;&#x6D41;&#x7A0B;&#x7684;&#x7B80;&#x5355;&#x4E3E;&#x4F8B;&#x3002;</p>
+<p>&#x9A8C;&#x8BC1;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x5566;~&#x4E0B;&#x9762;&#x8BF4;&#x8BF4;&#x5E8F;&#x5217;&#x5316;~</p>
+<h4 id="&#x5E8F;&#x5217;&#x5316;-amp-&#x53CD;&#x5E8F;&#x5217;&#x5316;"><a href="#&#x5E8F;&#x5217;&#x5316;-amp-&#x53CD;&#x5E8F;&#x5217;&#x5316;" class="headerlink" title="&#x5E8F;&#x5217;&#x5316;&amp;&#x53CD;&#x5E8F;&#x5217;&#x5316;"></a>&#x5E8F;&#x5217;&#x5316;&amp;&#x53CD;&#x5E8F;&#x5217;&#x5316;</h4><p>&#x5F15;&#x5165;&#x5E8F;&#x5217;&#x5316;&#x662F;&#x56E0;&#x4E3A;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x95EE;&#x9898;&#x3002;&#x7531;&#x4E8E;&#x5404;&#x9A8C;&#x8BC1;&#x5668;&#x4E4B;&#x95F4;&#x7684;&#x5C01;&#x95ED;&#x6027;&#xFF0C;&#x9700;&#x8981;&#x591A;&#x6B21;&#x5411;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x540C;&#x6837;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5F15;&#x5165;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x5730;&#x6539;&#x5584;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x4ECE;&#x800C;&#x8FBE;&#x5230;&#x4E00;&#x6B21;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x591A;&#x6B21;&#x4F7F;&#x7528;&#x7684;&#x6548;&#x679C;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x5FC5;&#x987B;&#x8981;&#x627F;&#x8BA4;&#xFF0C; &#x6211;&#x5BF9;deform&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x8FD9;&#x90E8;&#x5206;&#x7684;&#x539F;&#x7406;&#x6CA1;&#x592A;&#x660E;&#x767D;&#xFF0C;&#x5927;&#x6982;&#x53EA;&#x80FD;&#x4ECE;&#x4F8B;&#x5B50;&#x4E0A;&#x627E;&#x5230;&#x4E00;&#x70B9;&#x95E8;&#x8DEF;&#x3002;&#x76F4;&#x63A5;&#x4E0A;&#x6817;&#x5B50;~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@view_config(route_name=&apos;login&apos;,renderer=&apos;../templates/login.jinja2&apos;)</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(self)</span>:</span></div><div class="line">        DBsess = self.request.dbsession</div><div class="line"></div><div class="line">        <span class="class"><span class="keyword">class</span> <span class="title">TypeUser</span><span class="params">(object)</span>:</span></div><div class="line">            <span class="function"><span class="keyword">def</span> <span class="title">serialize</span><span class="params">(self,node,appstruct)</span>:</span></div><div class="line">                <span class="keyword">if</span> appstruct <span class="keyword">is</span> colander.null:</div><div class="line">                    <span class="keyword">return</span> colander.null</div><div class="line">                <span class="keyword">if</span> <span class="keyword">not</span> isinstance(appstruct,User):</div><div class="line">                    <span class="keyword">raise</span> colander.Invalid(node,<span class="string">&apos;%r &#x4E0D;&#x662F;User&#x7C7B;&#x5B9E;&#x4F8B;&apos;</span> % appstruct)                </div><div class="line">                <span class="keyword">return</span> appstruct.id</div><div class="line">            <span class="function"><span class="keyword">def</span> <span class="title">deserialize</span><span class="params">(self,node,cstruct)</span>:</span></div><div class="line">                <span class="keyword">if</span> cstruct <span class="keyword">is</span> colander.null:</div><div class="line">                    <span class="keyword">return</span> colander.null</div><div class="line">                <span class="keyword">if</span> <span class="keyword">not</span> isinstance(cstruct,basestring):</div><div class="line">                    <span class="keyword">raise</span> colander.Invalid(node,<span class="string">&apos;%r&#x3000;&#x4E0D;&#x662F;&#x6709;&#x6548;&#x7684;&#x7528;&#x6237;&#x540D;&apos;</span> % cstruct)</div><div class="line">                user = DBsess.query(User).filter_by(id=cstruct).first()</div><div class="line">                <span class="keyword">if</span> <span class="keyword">not</span> user:</div><div class="line">                    <span class="keyword">raise</span> colander.Invalid(node,<span class="string">&apos;%r &#x4E0D;&#x5B58;&#x5728;&apos;</span> % cstruct)</div><div class="line">                <span class="keyword">return</span> user</div><div class="line">                </div><div class="line">          <span class="function"><span class="keyword">def</span> <span class="title">password_validator</span><span class="params">(form,value)</span>:</span></div><div class="line">            user = value[<span class="string">&apos;login&apos;</span>]</div><div class="line">            password = value[<span class="string">&apos;password&apos;</span>]            </div><div class="line">            <span class="keyword">if</span> user.password != password:</div><div class="line">                <span class="keyword">raise</span> colander.Invalid(form,<span class="string">&apos;&#x5BC6;&#x7801;&#x9519;&#x8BEF;&apos;</span>)</div><div class="line">                </div><div class="line">          <span class="class"><span class="keyword">class</span> <span class="title">LoginFormSchema</span><span class="params">(colander.MappingSchema)</span>:</span>         </div><div class="line">            login = colander.SchemaNode(TypeUser())</div><div class="line">            password = colander.SchemaNode(colander.Str(),widget=deform.widget.PasswordWidget())</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x6837;&#x5728;&#x5B9A;&#x4E49;<code>schema</code>&#x7C7B;&#x65F6;&#xFF0C;&#x5C06;<code>login</code>&#x5B9A;&#x4E49;&#x4E3A;<code>TypeUser</code>&#x578B;&#x5B9E;&#x4F8B;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x5C06;&#x5177;&#x6709;<code>serialize</code>&#x548C;<code>deserialize</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x91CC;&#x8981;&#x8BF4;&#x660E;&#x4E00;&#x4E0B;&#xFF0C;<code>serialize</code>&#x548C;<code>deserialize</code>&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#x65B9;&#x6CD5;&#x90FD;&#x662F;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#xFF0C;&#x53EA;&#x6709;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x540D;&#x79F0;&#x548C;<code>appstruct</code>/<code>cstruct</code>&#x662F;<code>deform</code>&#x5E93;&#x9ED8;&#x8BA4;&#x81EA;&#x5E26;&#x7684;&#xFF0C;&#x65B9;&#x6CD5;&#x7684;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x4E0D;&#x662F;&#x3002;</p>
+<p>&#x800C;<code>serialize</code>&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x7684;&#x529F;&#x80FD;&#x5C31;&#x662F;&#xFF0C;&#x63A5;&#x53D7;&#x7684;&#x53C2;&#x6570;&#x4E3A;&#x8282;&#x70B9;node&#x548C;&#x7A0B;&#x5E8F;&#x5E94;&#x7528;&#x7684;&#x8868;&#x5355;&#x7ED3;&#x6784;<code>appstruct</code>&#x3002;&#x9996;&#x5148;&#xFF0C;&#x5224;&#x65AD;<code>appstruct</code>&#x662F;&#x5426;&#x4E3A;&#x7A7A;&#xFF0C;&#x7136;&#x540E;&#x5224;&#x65AD;&#x8BE5;&#x8868;&#x5355;&#x7ED3;&#x6784;&#x662F;&#x5426;&#x6EE1;&#x8DB3;<code>mymodel</code>&#x4E2D;&#x5B9A;&#x4E49;&#x7684;<code>User</code>&#x7C7B;&#xFF0C;&#x5982;&#x679C;&#x6EE1;&#x8DB3;&#x4E0A;&#x8FF0;&#x8981;&#x6C42;&#xFF0C;&#x5219;&#x53EF;&#x6839;&#x636E;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x8868;&#x5355;&#x7ED3;&#x6784;&#x7684;&#x67D0;&#x5C5E;&#x6027;&#x503C;&#x3002;</p>
+<p><code>deserialize</code>&#x65B9;&#x6CD5;&#xFF0C;&#x63A5;&#x53D7;&#x7684;&#x53C2;&#x6570;&#x4E3A;&#x8282;&#x70B9;<code>node</code>&#x548C;&#x7528;&#x6237;&#x5728;&#x8868;&#x5355;&#x4E2D;&#x8F93;&#x5165;&#x7684;&#x503C;&#x3002;&#x4E0E;&#x4E0A;&#x9762;&#x7C7B;&#x4F3C;&#x7684;&#x662F;&#xFF0C;&#x9996;&#x5148;&#x5224;&#x7A7A;&#xFF0C;&#x7136;&#x540E;&#x5224;&#x65AD;&#x7C7B;&#x578B;&#xFF0C;&#x8FD9;&#x91CC;&#x5224;&#x65AD;&#x7684;&#x57FA;&#x672C;&#x90FD;&#x662F;&#x662F;&#x5426;&#x4E3A;<code>basestring</code>&#x7C7B;&#x578B;&#x5B9E;&#x4F8B;&#xFF0C;&#x56E0;&#x8868;&#x5355;&#x7684;&#x8F93;&#x5165;&#x57FA;&#x672C;&#x90FD;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5982;&#x679C;&#x4E0A;&#x8FF0;&#x5224;&#x65AD;&#x5747;&#x901A;&#x8FC7;&#xFF0C;&#x5219;&#x6839;&#x636E;&#x7528;&#x6237;&#x5728;<code>login</code>&#x5B57;&#x6BB5;&#x8F93;&#x5165;&#x7684;&#x503C;&#xFF08;&#x5373;<code>cstruct</code>&#xFF09;&#x67E5;&#x5E93;&#xFF0C;&#x8FD4;&#x56DE;&#x67E5;&#x5E93;&#x7684;&#x6570;&#x636E;&#x5E93;&#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x2014;&#x2014;&#x2014;&#x2014;&#x6211;&#x662F;&#x5206;&#x5272;&#x7EBF;&#x2014;&#x2014;&#x2014;&#x2014;</p>
+<p><code>deform</code>&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x5C0F;&#x7684;&#x77E5;&#x8BC6;&#x70B9;&#xFF0C;&#x5982;&#x66F4;&#x6539;&#x8868;&#x5355;&#x663E;&#x793A;&#x548C;<code>css</code>&#x6837;&#x5F0F;&#xFF0C;&#x8FD9;&#x4E2A;&#x7B80;&#x5355;&#x8BF4;&#x4E0B;&#xFF0C;<code>deform</code>&#x7684;&#x5B89;&#x88C5;&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x6709;&#x4E00;&#x4E2A;<code>templates</code>&#x6587;&#x4EF6;&#x5939;&#xFF0C;<code>copy</code>&#x5230;&#x6211;&#x4EEC;&#x9879;&#x76EE;&#x7684;<code>templates</code>&#x8DEF;&#x5F84;&#x4E0B;&#xFF0C;&#x91CD;&#x547D;&#x540D;&#x4E3A;<code>deform</code>&#xFF0C;&#x91CC;&#x9762;&#x90FD;&#x662F;<code>chameleon</code>&#x6A21;&#x677F;&#x5199;&#x6210;&#x7684;&#x8868;&#x5355;<code>html</code>&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9700;&#x8981;&#x66F4;&#x6539;&#xFF0C;<code>views</code>&#x4E0B;&#x7684;<code>default.py</code>&#x6587;&#x4EF6;&#x4E2D;&#x8981;&#x52A0;&#x5165;&#xFF1A;</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">search_path</span> = (<span class="string">&apos;...(&#x9879;&#x76EE;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;)/myproject/templates/deform&apos;</span>,)</div><div class="line"><span class="attr">renderer</span> = deform.ZPTRendererFactory(search_path)</div></pre></td></tr></table></figure>
+<p>&#x7136;&#x540E;&#x5982;&#x679C;&#x8981;&#x7ED9;&#x8868;&#x5355;&#x52A0;&#x5165;<code>css</code>&#x6837;&#x5F0F;&#xFF0C;&#x50CF;&#x4EE5;&#x5F80;&#x4E00;&#x6837;&#x5728;<code>html</code>&#x4E2D;&#x6DFB;&#x52A0;<code>link</code>&#x5C31;&#x597D;</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;</span></span></span><span class="template-variable">{{request.static_url(&apos;myproject:static/css/login.css&apos;)}}</span><span class="xml"><span class="tag"><span class="string">&quot;</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>&#x2014;&#x2014;&#x2014;&#x2014;&#x6211;&#x662F;&#x771F;&#x7684;&#x5206;&#x5272;&#x7EBF;&#x2014;&#x2014;&#x2014;&#x2014;</p>
+<p>&#x5982;&#x4E0A;&#xFF0C;<code>deform</code>&#x5728;<code>pyramid</code>&#x4E2D;&#x7684;&#x77E5;&#x8BC6;&#x548C;&#x5E94;&#x7528;&#x57FA;&#x672C;&#x5C31;&#x8FD9;&#x4E48;&#x591A;&#x4E86;&#x3002;</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="../../../../tags/deform/">deform</a> <a class="tag tag--primary tag--small t-link" href="../../../../tags/pyramid/">pyramid</a> <a class="tag tag--primary tag--small t-link" href="../../../../tags/python/">python</a> <a class="tag tag--primary tag--small t-link" href="../../../../tags/表单/">表单</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="../../../03/30/pyramid框架——deform库执行表单操作（基础流程篇）/" data-tooltip="Pyramid框架——deform库执行表单操作（基础流程篇）">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>              
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="2017/04/09/pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）/"
+     data-title="Pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）" data-url="https://lizanyroger.github.io/2017/04/09/pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）/">
+</div>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Lizany Li. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="../../../03/30/pyramid框架——deform库执行表单操作（基础流程篇）/" data-tooltip="Pyramid框架——deform库执行表单操作（基础流程篇）">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>              
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://lizanyroger.github.io/2017/04/09/pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://lizanyroger.github.io/2017/04/09/pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://lizanyroger.github.io/2017/04/09/pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="../../../../assets/images/glass.jpg"/>
+        
+            <h4 id="about-card-name">Lizany Li</h4>
+        
+            <h5 id="about-card-bio"><p>一只青春后期的欢脱小白</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>student</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Beijing
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2017/04/09/pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）/">
+                            <h3 class="media-heading">Pyramid框架——deform库执行表单操作（验证器&amp;序列化篇）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月9日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p><code>deform</code>&#x63D0;&#x4F9B;&#x4E00;&#x4E9B;&#x9ED8;&#x8BA4;&#x7684;&#x5E26;&#x6709;&#x57FA;&#x7840;&#x529F;&#x80FD;&#x7684;&#x9A8C;&#x8BC1;&#x5668;&#xFF0C;&#x9664;&#x9ED8;&#x8BA4;&#x9A8C;&#x8BC1;&#x5668;&#x5916;&#xFF0C;&#x8FD8;&#x53EF;&#x6839;&#x636E;&#x9700;&#x8981;&#x81EA;&#x5B9A;&#x4E49;&#x9A8C;&#x8BC1;&#x5668;&#x3002;<code>deform</code>&#x7684;&#x9A8C;&#x8BC1;&#x5668;&#x5206;&#x4E3A;&#x4E24;&#x79CD;&#xFF0C;&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#x548C;&#x8868;&#x5355;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#x3002;&#x5B57;&#x6BB5;&#x7EA7;&#x9A8C;&#x8BC1;&#x5668;&#x9488;&#x5BF9;&#x5355;&#x4E2A;&#x6A21;&#x5F0F;&#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x3002;</p>
+<p>&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x662F;&#x9488;&#x5BF9;&#x7F51;&#x9875;&#x663E;&#x793A;&#x7684;&#x6570;&#x636E;&#x548C;<code>pyramid deform</code>&#x8868;&#x5355;&#x7ED3;&#x6784;&#x7684;&#x76F8;&#x4E92;&#x8F6C;&#x5316;&#x8FC7;&#x7A0B;&#xFF0C;&#x5E8F;&#x5217;&#x5316;<code>serialize</code>&#x662F;&#x5C06;<code>appstruct</code>&#x7ED3;&#x6784;&#x8F6C;&#x6362;&#x6210;&#x663E;&#x793A;&#x7ED9;&#x7528;&#x6237;&#x7684;&#x8868;&#x5355;&#xFF0C;&#x53CD;&#x5E8F;&#x5217;&#x5316;<code>deserialize</code>&#x662F;&#x5C06;&#x7528;&#x6237;&#x63D0;&#x4EA4;&#x7684;&#x8868;&#x5355;&#x8F6C;&#x6362;&#x6210;<code>appstruct</code>&#x7ED3;&#x6784;&#x7ED9;&#x540E;&#x53F0;<code>deform</code>&#x5E93;&#x505A;&#x6570;&#x636E;&#x5904;&#x7406;&#x4E0E;&#x9A8C;&#x8BC1;&#x3002;</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2017/03/30/pyramid框架——deform库执行表单操作（基础流程篇）/">
+                            <h3 class="media-heading">Pyramid框架——deform库执行表单操作（基础流程篇）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年3月30日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p><code>pyramid</code>&#x548C;<code>deform</code>&#x662F;&#x540C;&#x4E00;&#x9879;&#x76EE;&#x7EC4;&#x5F00;&#x53D1;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x8026;&#x5408;&#x6027;&#x5F88;&#x597D;&#xFF0C;<code>pyramid</code>&#x5B98;&#x65B9;&#x7ED9;&#x7684;&#x8868;&#x5355;&#x76F8;&#x5173;&#x5E93;&#x4E5F;&#x662F;<code>deform</code>&#x3002;&#x5148;&#x4E0A;&#x53C2;&#x8003;&#x7F51;&#x5740;&#xFF0C;<code>pyramid</code>&#x5B98;&#x7F51;&#x4E0A;&#x5BF9;<code>deform</code>&#x5E93;&#x7684;<a href="http://docs.pylonsproject.org/projects/deform/en/latest/index.html">&#x4ECB;&#x7ECD;</a>&#xFF0C;&#x4E0B;&#x6587;&#x7684;&#x90E8;&#x5206;&#x4E5F;&#x662F;&#x5BF9;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x7684;&#x7FFB;&#x8BD1;&#x3002;</p>
+<p><code>deform</code>&#x662F;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684;&#x57FA;&#x4E8E;<code>python</code>&#x7684;<code>HTML</code>&#x8868;&#x5355;&#x751F;&#x6210;&#x5E93;&#xFF0C;&#x652F;&#x6301;<code>python2</code>&#x3001;<code>python3</code>&#x548C;<code>PyPy</code>&#xFF0C;&#x652F;&#x6301;&#x83B7;&#x53D6;&#x65E5;&#x671F;&#x548C;&#x65F6;&#x95F4;&#x5C0F;&#x63D2;&#x4EF6;&#x3001;&#x4E30;&#x5BCC;&#x7684;&#x6587;&#x672C;&#x7F16;&#x8F91;&#x5668;&#x3001;&#x52A8;&#x6001;&#x589E;&#x5220;&#x6761;&#x76EE;&#x7684;&#x8868;&#x5355;&#x548C;&#x5176;&#x4ED6;&#x4E00;&#x4E9B;&#x590D;&#x6742;&#x7684;&#x7528;&#x4F8B;&#x3002;<code>deform</code>&#x7ED3;&#x5408;&#x4E86;<code>pyramid web</code>&#x6846;&#x67B6;&#x548C;&#x4E00;&#x4E9B;&#x5176;&#x4ED6;&#x7684;<code>web</code>&#x6846;&#x67B6;&#xFF0C;&#x91C7;&#x7528;<code>Chameleon</code>&#x6A21;&#x677F;&#x548C;<code>bootstrap 3</code>&#x6765;&#x8BBE;&#x7F6E;&#x6837;&#x5F0F;&#xFF0C;<a href="http://docs.pylonsproject.org/projects/colander/en/latest/index.html"><code>Colander Schema</code></a> &#x7528;&#x4E8E;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x9A8C;&#x8BC1;&#x8868;&#x5355;&#xFF0C;<code>Peppercorn</code>&#x5E93;&#x5C06;HTTP&#x83B7;&#x53D6;&#x7684;&#x8868;&#x5355;&#x63D0;&#x6570;&#x636E;&#x53D8;&#x6210;&#x5D4C;&#x5957;&#x7684;&#x7ED3;&#x6784;&#x5316;&#x683C;&#x5F0F;&#x3002;&#x5C3D;&#x7BA1;<code>deform</code>&#x5185;&#x90E8;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>Chameleon</code>&#x6A21;&#x677F;&#xFF0C;&#x4F46;&#x662F;&#x4ECD;&#x7136;&#x53EF;&#x4EE5;&#x5C06;&#x6E32;&#x67D3;&#x8FC7;&#x7684;<code>deform</code>&#x8868;&#x5355;&#x5D4C;&#x5165;&#x4EFB;&#x4F55;&#x6A21;&#x677F;&#x8BED;&#x8A00;&#x3002;</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2016/12/14/一个编程小白白的爬虫&amp;贝叶斯之旅（一）/">
+                            <h3 class="media-heading">一个编程小白白的爬虫&amp;贝叶斯之旅（一）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2016年12月14日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>&#x4F5C;&#x4E3A;&#x4E00;&#x53EA;&#x7EAF;&#x7EAF;&#x5C0F;&#x767D;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x63A5;&#x89E6;python&amp;&#x722C;&#x866B;&amp;&#x6587;&#x672C;&#x5206;&#x7C7B;&#xFF0C;&#x7B97;&#x662F;&#x7EDD;&#x5BF9;&#x7684;push&#x81EA;&#x5DF1;&#x63A5;&#x89E6;&#x65B0;&#x6280;&#x672F;&#x4E86;&#xFF0C;&#x521A;&#x5F00;&#x59CB;&#x5F88;&#x65B9;&#xFF0C;&#x6BCF;&#x505A;&#x4E00;&#x6B65;&#x90FD;&#x4F1A;&#x7EE7;&#x7EED;&#x614C;&#x4E0B;&#x4E00;&#x6B65;&#xFF0C;&#x6240;&#x5E78;&#x4E00;&#x6B65;&#x6B65;&#x505A;&#x4E0B;&#x6765;&#x56DE;&#x5934;&#x770B;&#x611F;&#x89C9;&#x8FD8;&#x4E0D;&#x9519;&#x561B;~</p>
+<h5 id="&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x6B63;&#x9898;&#x2026;&#x2026;"><a href="#&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x6B63;&#x9898;&#x2026;&#x2026;" class="headerlink" title="&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x6B63;&#x9898;&#x2026;&#x2026;"></a>&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x6B63;&#x9898;&#x2026;&#x2026;</h5><p>&#x76EE;&#x6807;&#x5206;&#x9636;&#x6BB5;&#x6027;&#x6709;&#x56DB;&#xFF1A;</p>
+<ol>
+<li>&#x722C;&#x866B;&#x83B7;&#x53D6;&#x8BED;&#x6599;&#x5E93;</li>
+<li>&#x5BF9;&#x8BED;&#x6599;&#x5E93;&#x8FDB;&#x884C;&#x9884;&#x5904;&#x7406;&#xFF08;&#x5305;&#x62EC;&#x5206;&#x8BCD;&#x548C;&#x53BB;&#x505C;&#x7528;&#x8BCD;&#xFF09;</li>
+<li>&#x6784;&#x5EFA;&#x6570;&#x636E;&#x8BCD;&#x5178;&#xFF08;&#x8BAD;&#x7EC3;&#xFF09;</li>
+<li>&#x5BF9;&#x6D4B;&#x8BD5;&#x96C6;&#x5206;&#x7C7B;</li>
+</ol></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2017/03/07/阿里云服务器利用Nginx配置反向代理/">
+                            <h3 class="media-heading">阿里云服务器利用Nginx配置反向代理</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年3月7日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>&#x5B9E;&#x9A8C;&#x5BA4;&#x5DE5;&#x4F5C;&#x9700;&#x8981;&#xFF0C;&#x5728;&#x963F;&#x91CC;&#x4E91;centOS&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x914D;&#x7F6E;nginx&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x5B9E;&#x73B0;&#x5916;&#x7F51;&#x8BBF;&#x95EE;A:a&#x5730;&#x5740;&#x5B9E;&#x9645;&#x4E0A;&#x663E;&#x793A;&#x7684;&#x662F;B:a&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5C0F;&#x767D;&#x4E4B;&#x524D;&#x5BF9;&#x4E8E;nginx&#x548C;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x57FA;&#x672C;&#x90FD;&#x5904;&#x4E8E;&#x9ED1;&#x4EBA;&#x95EE;&#x53F7;&#x8138;.jpg&#x72B6;&#x6001;&#xFF0C;&#x6240;&#x4EE5;&#x501F;&#x8FD9;&#x4E2A;&#x673A;&#x4F1A;&#x4E5F;&#x5C0F;&#x5C0F;&#x5B66;&#x4E60;&#x4E86;&#x4E00;&#x4E0B;~</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://lizanyroger.github.io/2016/12/30/一个编程小白白的爬虫&amp;贝叶斯之旅（二）/">
+                            <h3 class="media-heading">一个编程小白白的爬虫&amp;贝叶斯之旅（二）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2016年12月30日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>&#x8BF4;&#x5B8C;&#x4E86;&#x8017;&#x65F6;&#x6700;&#x957F;&#x7684;&#x722C;&#x866B;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x8BF4;&#x8BF4;&#x540E;&#x9762;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x7684;&#x5C0F;&#x767D;&#x767D;&#x5DF2;&#x7ECF;&#x4E0D;&#x662F;&#x6700;&#x5F00;&#x59CB;&#x90A3;&#x4E2A;&#x7EAF;&#x7EAF;&#x5C0F;&#x767D;&#x4E86;&#xFF0C;&#x5BF9;python&#x7684;&#x719F;&#x6089;&#x4E86;&#x5F88;&#x591A;&#xFF0C;&#x518D;&#x52A0;&#x4E0A;&#x540E;&#x9762;&#x7684;&#x5DE5;&#x4F5C;&#x4E3B;&#x8981;&#x662F;&#x903B;&#x8F91;&#x6027;&#x5927;&#x4E8E;&#x8017;&#x65F6;&#x6027;&#xFF0C;&#x6240;&#x4EE5;&#x4E4B;&#x540E;&#x7684;&#x9884;&#x5904;&#x7406;&#x3001;&#x8BAD;&#x7EC3;&#x548C;&#x5206;&#x7C7B;&#x7528;&#x7684;&#x65F6;&#x95F4;&#x548C;&#x722C;&#x866B;&#x603B;&#x5171;&#x7528;&#x7684;&#x65F6;&#x95F4;&#x5DEE;&#x4E0D;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x6309;&#x7167;&#x65F6;&#x95F4;&#x5206;&#x5E03;&#x628A;&#x540E;&#x9762;&#x4E09;&#x90E8;&#x5206;&#x653E;&#x5728;&#x4E00;&#x8D77;&#x8BF4;&#x5566;~</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 5 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+        
+<div id="cover" style="background-image:url('../../../../assets/images/cover3.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="../../../../assets/js/script-taaobz4ueybn54ikf9gtu3wlm8tpgzjkwfknygrtitquljbwokv26p56moto.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'lizany'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('Z7A3XW4R2I', '12db1ad54372045549ef465881c17e743');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+    </body>
+</html>
